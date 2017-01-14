@@ -39,10 +39,10 @@ public class BluetoothActivity extends AppCompatActivity {
     BluetoothService bluetoothService;
     BluetoothDevice device;
 
-    @Bind(R.id.edit_text)
-    EditText editText;
-    @Bind(R.id.send_button)
-    Button sendButton;
+//    @Bind(R.id.edit_text)
+//    EditText editText;
+//    @Bind(R.id.send_button)
+//    Button sendButton;
     @Bind(R.id.chat_list_view)
     ListView chatListView;
     @Bind(R.id.toolbar)
@@ -63,15 +63,25 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
 
-    @OnClick(R.id.send_button) void send() {
-        // Send a item_message using content of the edit text widget
-        String message = editText.getText().toString();
-        if (message.trim().length() == 0) {
-            editText.setError("Enter text first");
-        } else {
-            sendMessage(message);
-            editText.setText("");
-        }
+//    @OnClick(R.id.send_button) void send() {
+//        // Send a item_message using content of the edit text widget
+//        String message = editText.getText().toString();
+//        if (message.trim().length() == 0) {
+//            editText.setError("Enter text first");
+//        } else {
+//            sendMessage(message);
+//            editText.setText("");
+//        }
+//    }
+    public void motorOn(View view){
+        sendMessage("a");
+
+    }
+
+    public void motorOff(View view){
+
+        sendMessage("b");
+
     }
 
     @Override
@@ -82,17 +92,17 @@ public class BluetoothActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        editText.setError("Enter text first");
-
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    send();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        editText.setError("Enter text first");
+//
+//        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (actionId == EditorInfo.IME_ACTION_SEND) {
+//                    send();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         snackTurnOn = Snackbar.make(coordinatorLayout, "Bluetooth turned off", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Turn On", new View.OnClickListener() {
@@ -218,8 +228,8 @@ public class BluetoothActivity extends AppCompatActivity {
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                    ChatMessage messageWrite = new ChatMessage("Me", writeMessage);
-                    activity.addMessageToAdapter(messageWrite);
+                  //  ChatMessage messageWrite = new ChatMessage("Me", writeMessage);
+                    //activity.addMessageToAdapter(messageWrite);
                     break;
                 case Constants.MESSAGE_READ:
 
@@ -248,6 +258,8 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     private void addMessageToAdapter(ChatMessage chatMessage) {
+
+      //  chatAdapter.clear();
         chatAdapter.add(chatMessage);
         if (autoScrollIsChecked) scrollChatListViewToBottom();
     }

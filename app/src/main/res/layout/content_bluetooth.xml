@@ -19,22 +19,40 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_text"
-            android:imeOptions="actionSend"
-            android:inputType="text"/>
 
         <Button
             android:layout_width="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="monospace"
+
+
+            android:background="@drawable/button_back_on"
+
+            android:layout_weight="10"
+            android:layout_height="wrap_content"
+            android:id="@+id/send_button1"
+            android:onClick="motorOn"
+            android:text="On"/>
+        <Space
+            android:layout_weight="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="wrap_content"
+
+            android:textSize="24sp"
+            android:fontFamily="monospace"
+            android:layout_weight="10"
+            android:background="@drawable/button_background"
 
             android:layout_height="wrap_content"
-            android:id="@+id/send_button"
-            android:text="Send"/>
+            android:id="@+id/send_button2"
+            android:onClick="motorOff"
+            android:layout_gravity="right"
+            android:text="Off"/>
 
     </LinearLayout>
+
 
     <ListView
         android:layout_width="match_parent"

@@ -11,12 +11,14 @@ public class ChatMessage {
     String message;
     String device;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
+
 
     public ChatMessage(String device, String message) {
         this.time = new Date();
         this.message = message;
         this.device = device;
+
     }
 
     public String getTime() {
