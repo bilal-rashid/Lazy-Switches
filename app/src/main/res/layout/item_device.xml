@@ -6,7 +6,7 @@
     card_view:paddingEnd="@dimen/spacing_small"
     card_view:paddingStart="@dimen/spacing_small"
     card_view:cardUseCompatPadding="true"
-    card_view:cardBackgroundColor="@color/colorListItem"
+    card_view:cardBackgroundColor="@color/colorItem"
     card_view:cardCornerRadius="3dp">
 
     <LinearLayout

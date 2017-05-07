@@ -9,6 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar toolbarProgressCircle;
     @Bind(R.id.coordinator_layout_main)
     CoordinatorLayout coordinatorLayout;
+
 
     @OnClick(R.id.search_button) void search() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         setStatus("Asking to connect");
         final BluetoothDevice device = bluetoothDevicesAdapter.getItem(position);
 
-        new AlertDialog.Builder(MainActivity.this)
+        AlertDialog alertDialog=new AlertDialog.Builder(MainActivity.this)
                 .setCancelable(false)
                 .setTitle("Connect")
                 .setMessage("Do you want to connect to: " + device.getName() + " - " + device.getAddress())
@@ -118,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(Constants.TAG, "Cancelled ");
                     }
                 }).show();
+     //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryDark2);
+//        alertDialog.getWindow().getDecorView().getBackground()
+//                .setColorFilter(new LightingColorFilter(0xFF000000,
+//                getResources().getColor(R.color.colorPrimaryDark1)));
     }
 
     @Override
@@ -152,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                     }).show();
 
         }
+
+        //btn1.set
     }
 
     @Override protected void onStart() {

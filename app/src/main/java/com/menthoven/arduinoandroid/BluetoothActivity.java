@@ -32,6 +32,7 @@ import java.lang.ref.WeakReference;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.hoang8f.widget.FButton;
 
 public class BluetoothActivity extends AppCompatActivity {
 
@@ -43,21 +44,37 @@ public class BluetoothActivity extends AppCompatActivity {
 //    EditText editText;
 //    @Bind(R.id.send_button)
 //    Button sendButton;
-    @Bind(R.id.chat_list_view)
-    ListView chatListView;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.empty_list_item)
-    TextView emptyListTextView;
     @Bind(R.id.toolbar_progress_bar)
     ProgressBar toolbalProgressBar;
     @Bind(R.id.coordinator_layout_bluetooth)
     CoordinatorLayout coordinatorLayout;
+    @Bind(R.id.button1)
+    FButton button1;
+    @Bind(R.id.button2)
+    FButton button2;
+    @Bind(R.id.button3)
+    FButton button3;
+    @Bind(R.id.button4)
+    FButton button4;
+    @Bind(R.id.button5)
+    FButton button5;
+    @Bind(R.id.button6)
+    FButton button6;
+    @Bind(R.id.button7)
+    FButton button7;
+    @Bind(R.id.button8)
+    FButton button8;
+    @Bind(R.id.button9)
+    FButton button9;
+    @Bind(R.id.button10)
+    FButton button10;
 
     MenuItem reconnectButton;
-    ChatAdapter chatAdapter;
 
     Snackbar snackTurnOn;
+
 
     private boolean showMessagesIsChecked = true;
     private boolean autoScrollIsChecked = true;
@@ -92,18 +109,6 @@ public class BluetoothActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-//        editText.setError("Enter text first");
-//
-//        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_SEND) {
-//                    send();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-
         snackTurnOn = Snackbar.make(coordinatorLayout, "Bluetooth turned off", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Turn On", new View.OnClickListener() {
                     @Override public void onClick(View v) {
@@ -112,10 +117,6 @@ public class BluetoothActivity extends AppCompatActivity {
                 });
 
 
-
-        chatAdapter = new ChatAdapter(this);
-        chatListView.setEmptyView(emptyListTextView);
-        chatListView.setAdapter(chatAdapter);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -132,6 +133,169 @@ public class BluetoothActivity extends AppCompatActivity {
         bluetoothService = new BluetoothService(handler, device);
 
         setTitle(device.getName());
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button1.getText().toString().equalsIgnoreCase("OFF")){
+                    button1.setText("ON");
+                    button1.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button1.setText("OFF");
+                    button1.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button2.getText().toString().equalsIgnoreCase("OFF")){
+                    button2.setText("ON");
+                    button2.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button2.setText("OFF");
+                    button2.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button3.getText().toString().equalsIgnoreCase("OFF")){
+                    button3.setText("ON");
+                    button3.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button3.setText("OFF");
+                    button3.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button4.getText().toString().equalsIgnoreCase("OFF")){
+                    button4.setText("ON");
+                    button4.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button4.setText("OFF");
+                    button4.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button5.getText().toString().equalsIgnoreCase("OFF")){
+                    button5.setText("ON");
+                    button5.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button5.setText("OFF");
+                    button5.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button6.getText().toString().equalsIgnoreCase("OFF")){
+                    button6.setText("ON");
+                    button6.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button6.setText("OFF");
+                    button6.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button7.getText().toString().equalsIgnoreCase("OFF")){
+                    button7.setText("ON");
+                    button7.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button7.setText("OFF");
+
+                    button7.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(button8.getText().toString().equalsIgnoreCase("OFF")){
+                    button8.setText("ON");
+                    button8.setButtonColor(getResources().getColor(R.color.colorOn));
+
+                }else {
+                    button8.setText("OFF");
+                    button8.setButtonColor(getResources().getColor(R.color.colorItem));
+
+                }
+            }
+        });
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                button1.setText("ON");
+                button1.setButtonColor(getResources().getColor(R.color.colorOn));
+                button2.setText("ON");
+                button2.setButtonColor(getResources().getColor(R.color.colorOn));
+                button3.setText("ON");
+                button3.setButtonColor(getResources().getColor(R.color.colorOn));
+                button4.setText("ON");
+                button4.setButtonColor(getResources().getColor(R.color.colorOn));
+                button5.setText("ON");
+                button5.setButtonColor(getResources().getColor(R.color.colorOn));
+                button6.setText("ON");
+                button6.setButtonColor(getResources().getColor(R.color.colorOn));
+                button7.setText("ON");
+                button7.setButtonColor(getResources().getColor(R.color.colorOn));
+                button8.setText("ON");
+                button8.setButtonColor(getResources().getColor(R.color.colorOn));
+            }
+        });
+        button10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                button1.setText("OFF");
+                button1.setButtonColor(getResources().getColor(R.color.colorItem));
+                button2.setText("OFF");
+                button2.setButtonColor(getResources().getColor(R.color.colorItem));
+                button3.setText("OFF");
+                button3.setButtonColor(getResources().getColor(R.color.colorItem));
+                button4.setText("OFF");
+                button4.setButtonColor(getResources().getColor(R.color.colorItem));
+                button5.setText("OFF");
+                button5.setButtonColor(getResources().getColor(R.color.colorItem));
+                button6.setText("OFF");
+                button6.setButtonColor(getResources().getColor(R.color.colorItem));
+                button7.setText("OFF");
+                button7.setButtonColor(getResources().getColor(R.color.colorItem));
+                button8.setText("OFF");
+                button8.setButtonColor(getResources().getColor(R.color.colorItem));
+            }
+        });
+
     }
 
     @Override protected void onStart() {
@@ -259,19 +423,18 @@ public class BluetoothActivity extends AppCompatActivity {
 
     private void addMessageToAdapter(ChatMessage chatMessage) {
 
-      //  chatAdapter.clear();
-        chatAdapter.add(chatMessage);
+
         if (autoScrollIsChecked) scrollChatListViewToBottom();
     }
 
     private void scrollChatListViewToBottom() {
-        chatListView.post(new Runnable() {
-            @Override
-            public void run() {
-                // Select the last row so it will scroll into view...
-                chatListView.smoothScrollToPosition(chatAdapter.getCount() - 1);
-            }
-        });
+//        chatListView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                // Select the last row so it will scroll into view...
+//                chatListView.smoothScrollToPosition(chatAdapter.getCount() - 1);
+//            }
+//        });
     }
 
     @Override
@@ -295,7 +458,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 reconnect();
                 return true;
             case R.id.action_clear:
-                chatAdapter.clear();
+               // chatAdapter.clear();
                 return true;
             case R.id.checkable_auto_scroll:
                 autoScrollIsChecked = !item.isChecked();
@@ -308,7 +471,7 @@ public class BluetoothActivity extends AppCompatActivity {
             case R.id.checkable_show_time:
                 showTimeIsChecked = !item.isChecked();
                 item.setChecked(showTimeIsChecked);
-                chatAdapter.notifyDataSetChanged();
+               // chatAdapter.notifyDataSetChanged();
                 return true;
         }
         return super.onOptionsItemSelected(item);

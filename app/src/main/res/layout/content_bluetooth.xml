@@ -1,64 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blurr"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_bluetooth"
     tools:context="com.menthoven.arduinoandroid.BluetoothActivity"
-    android:orientation="vertical">
+    tools:showIn="@layout/activity_bluetooth">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
 
 
-        <Button
-            android:layout_width="wrap_content"
-            android:textSize="24sp"
-            android:fontFamily="monospace"
+                    />
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"/>
 
 
-            android:background="@drawable/button_back_on"
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
 
-            android:layout_weight="10"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"/>
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+
+                <!--<Button-->
+                <!--android:layout_width="0dp"-->
+                <!--android:text="OFF"-->
+                <!--android:textSize="35sp"-->
+                <!--style="@style/Widget.AppCompat.Button.Colored"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1" />-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp" />
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"/>
+
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"/>
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+                <!--<Button-->
+                <!--android:layout_width="0dp"-->
+                <!--android:text="OFF"-->
+                <!--android:textSize="35sp"-->
+                <!--style="@style/Widget.AppCompat.Button.Colored"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1" />-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"/>
+
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="OFF"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorItem"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+
+                <!--<Button-->
+                <!--android:layout_width="0dp"-->
+                <!--android:text="OFF"-->
+                <!--android:textSize="35sp"-->
+                <!--style="@style/Widget.AppCompat.Button.Colored"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1" />-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="All On"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorOn"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"/>
+
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/button10"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="All Off"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    app:cornerRadius="15dp"
+                    fbutton:buttonColor="@color/colorOn"
+                    fbutton:shadowColor="@color/shadow"
+                    fbutton:shadowEnabled="true"
+                    fbutton:shadowHeight="3dp"
+
+
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/chat_list_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/send_button1"
-            android:onClick="motorOn"
-            android:text="On"/>
-        <Space
-            android:layout_weight="10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
-            android:layout_width="wrap_content"
-
-            android:textSize="24sp"
-            android:fontFamily="monospace"
-            android:layout_weight="10"
-            android:background="@drawable/button_background"
-
-            android:layout_height="wrap_content"
-            android:id="@+id/send_button2"
-            android:onClick="motorOff"
-            android:layout_gravity="right"
-            android:text="Off"/>
+            android:fastScrollEnabled="true"
+            android:visibility="gone" />
 
     </LinearLayout>
-
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/chat_list_view"
-        android:fastScrollEnabled="true"/>
-
-    <include layout="@layout/empty_list_item" />
 </LinearLayout>
