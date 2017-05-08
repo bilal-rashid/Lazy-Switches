@@ -139,10 +139,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button1.getText().toString().equalsIgnoreCase("OFF")){
                     button1.setText("ON");
                     button1.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("A");
 
                 }else {
                     button1.setText("OFF");
                     button1.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("a");
 
                 }
             }
@@ -154,10 +156,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button2.getText().toString().equalsIgnoreCase("OFF")){
                     button2.setText("ON");
                     button2.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("B");
 
                 }else {
                     button2.setText("OFF");
                     button2.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("b");
 
                 }
             }
@@ -169,10 +173,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button3.getText().toString().equalsIgnoreCase("OFF")){
                     button3.setText("ON");
                     button3.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("C");
 
                 }else {
                     button3.setText("OFF");
                     button3.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("c");
 
                 }
             }
@@ -184,10 +190,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button4.getText().toString().equalsIgnoreCase("OFF")){
                     button4.setText("ON");
                     button4.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("D");
 
                 }else {
                     button4.setText("OFF");
                     button4.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("d");
 
                 }
             }
@@ -199,10 +207,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button5.getText().toString().equalsIgnoreCase("OFF")){
                     button5.setText("ON");
                     button5.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("E");
 
                 }else {
                     button5.setText("OFF");
                     button5.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("e");
 
                 }
             }
@@ -214,10 +224,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button6.getText().toString().equalsIgnoreCase("OFF")){
                     button6.setText("ON");
                     button6.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("F");
 
                 }else {
                     button6.setText("OFF");
                     button6.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("f");
 
                 }
             }
@@ -229,11 +241,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button7.getText().toString().equalsIgnoreCase("OFF")){
                     button7.setText("ON");
                     button7.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("G");
 
                 }else {
                     button7.setText("OFF");
-
                     button7.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("g");
 
                 }
             }
@@ -245,10 +258,12 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(button8.getText().toString().equalsIgnoreCase("OFF")){
                     button8.setText("ON");
                     button8.setButtonColor(getResources().getColor(R.color.colorOn));
+                    sendMessage("H");
 
                 }else {
                     button8.setText("OFF");
                     button8.setButtonColor(getResources().getColor(R.color.colorItem));
+                    sendMessage("h");
 
                 }
             }
@@ -272,6 +287,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 button7.setButtonColor(getResources().getColor(R.color.colorOn));
                 button8.setText("ON");
                 button8.setButtonColor(getResources().getColor(R.color.colorOn));
+                sendMessage("ABCDEFGH");
             }
         });
         button10.setOnClickListener(new View.OnClickListener() {
@@ -293,6 +309,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 button7.setButtonColor(getResources().getColor(R.color.colorItem));
                 button8.setText("OFF");
                 button8.setButtonColor(getResources().getColor(R.color.colorItem));
+                sendMessage("abcdefgh");
             }
         });
 
@@ -347,8 +364,15 @@ public class BluetoothActivity extends AppCompatActivity {
                     }).show();
             return;
         } else {
-            byte[] send = message.getBytes();
-            bluetoothService.write(send);
+//            Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
+//                    .setAction("Connect", new View.OnClickListener() {
+//                        @Override public void onClick(View v) {
+//                            reconnect();
+//                        }
+//                    }).show();
+
+//            byte[] send = message.getBytes();
+//            bluetoothService.write(send);
         }
     }
 
@@ -424,7 +448,13 @@ public class BluetoothActivity extends AppCompatActivity {
     private void addMessageToAdapter(ChatMessage chatMessage) {
 
 
-        if (autoScrollIsChecked) scrollChatListViewToBottom();
+//        Snackbar.make(coordinatorLayout, chatMessage.getMessage(), Snackbar.LENGTH_LONG)
+//                .setAction("Connect", new View.OnClickListener() {
+//                    @Override public void onClick(View v) {
+//                        reconnect();
+//                    }
+//                }).show();
+
     }
 
     private void scrollChatListViewToBottom() {
