@@ -6,12 +6,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -79,6 +81,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean showMessagesIsChecked = true;
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
+    Drawable bulb_on,bulb_off;
 
 //    @OnClick(R.id.send_button) void send() {
 //        // Send a item_message using content of the edit text widget
@@ -131,6 +134,14 @@ public class BluetoothActivity extends AppCompatActivity {
         device = getIntent().getExtras().getParcelable(Constants.EXTRA_DEVICE);
 
         bluetoothService = new BluetoothService(handler, device);
+
+
+        bulb_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.bulb_on);
+        bulb_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.bulb_off);
+       // button2.setCompoundDrawables( bulb_off, null, null, null );
+
+        bulb_off.setBounds( 0, 0, 60, 60 );
+        bulb_on.setBounds( 0, 0, 60, 60 );
 
         setTitle(device.getName());
         button1.setOnClickListener(new View.OnClickListener() {
