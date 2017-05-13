@@ -66,28 +66,12 @@ public class BluetoothActivity extends AppCompatActivity {
     FButton button9;
     @Bind(R.id.button10)
     FButton button10;
-
     MenuItem reconnectButton;
-
     Snackbar snackTurnOn;
-
-
     private boolean showMessagesIsChecked = true;
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
     Drawable bulb_on, bulb_off, fan_on, fan_off, plug_on, plug_off;
-
-    public void motorOn(View view) {
-        sendMessage("a");
-
-    }
-
-    public void motorOff(View view) {
-
-        sendMessage("b");
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,14 +117,14 @@ public class BluetoothActivity extends AppCompatActivity {
         plug_on.setBounds(0, 0, 60, 60);
         plug_off.setBounds(0, 0, 60, 60);
 
-        setLongclickListener(button1, Constant.BUTTON_1);
-        setLongclickListener(button2, Constant.BUTTON_2);
-        setLongclickListener(button3, Constant.BUTTON_3);
-        setLongclickListener(button4, Constant.BUTTON_4);
-        setLongclickListener(button5, Constant.BUTTON_5);
-        setLongclickListener(button6, Constant.BUTTON_6);
-        setLongclickListener(button7, Constant.BUTTON_7);
-        setLongclickListener(button8, Constant.BUTTON_8);
+        setLongClickListener(button1, Constant.BUTTON_1);
+        setLongClickListener(button2, Constant.BUTTON_2);
+        setLongClickListener(button3, Constant.BUTTON_3);
+        setLongClickListener(button4, Constant.BUTTON_4);
+        setLongClickListener(button5, Constant.BUTTON_5);
+        setLongClickListener(button6, Constant.BUTTON_6);
+        setLongClickListener(button7, Constant.BUTTON_7);
+        setLongClickListener(button8, Constant.BUTTON_8);
 
         buttonOff(button1,Constant.BUTTON_1);
         buttonOff(button2,Constant.BUTTON_2);
@@ -350,7 +334,7 @@ public class BluetoothActivity extends AppCompatActivity {
         }
     }
 
-    public void setLongclickListener(FButton button, final String key) {
+    public void setLongClickListener(FButton button, final String key) {
 
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -577,6 +561,10 @@ public class BluetoothActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.bluetooth_menu, menu);
         reconnectButton = menu.findItem(R.id.action_reconnect);
+        menu.findItem(R.id.action_clear).setVisible(false);
+        menu.findItem(R.id.checkable_auto_scroll).setVisible(false);
+        menu.findItem(R.id.checkable_show_messages).setVisible(false);
+        menu.findItem(R.id.checkable_show_time).setVisible(false);
         return true;
     }
 
