@@ -11,4 +11,5 @@
     <color name="colorTextSecondary">#000000</color>
     <color name="colorItem">#61ffffff</color>
     <color name="colorOn">#87ffffff</color>
+    <color name="colorOnWhite">#a9ffffff</color>
 </resources>

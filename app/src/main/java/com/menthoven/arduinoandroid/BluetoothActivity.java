@@ -72,7 +72,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean showMessagesIsChecked = true;
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
-    Drawable bulb_on,bulb_off,fan_on,fan_off;
+    Drawable bulb_on,bulb_off,fan_on,fan_off,plug_on,plug_off;
     public void motorOn(View view){
         sendMessage("a");
 
@@ -93,6 +93,8 @@ public class BluetoothActivity extends AppCompatActivity {
 //        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_2,2);
 //        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_3,1);
 //        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_5,1);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_1,3);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_6,3);
 
 
         ButterKnife.bind(this);
@@ -129,6 +131,10 @@ public class BluetoothActivity extends AppCompatActivity {
         fan_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.electric_fan_off);
         fan_off.setBounds( 0, 0, 60, 60 );
         fan_on.setBounds( 0, 0, 60, 60 );
+        plug_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.plug_on);
+        plug_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.plug_off);
+        plug_on.setBounds( 0, 0, 60, 60 );
+        plug_off.setBounds( 0, 0, 60, 60 );
 
         setTitle(device.getName());
         button1.setOnClickListener(new View.OnClickListener() {
@@ -282,7 +288,12 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void buttonOn(FButton button,String buttonKey){
-        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
+        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==3){
+            button.setText("ON");
+            button.setCompoundDrawables( plug_on, null, null, null );
+            button.setButtonColor(getResources().getColor(R.color.colorOn));
+
+        } else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
             button.setText("ON");
             button.setCompoundDrawables( fan_on, null, null, null );
             button.setButtonColor(getResources().getColor(R.color.colorOn));
@@ -295,12 +306,17 @@ public class BluetoothActivity extends AppCompatActivity {
 
         }else {
             button.setText("ON");
-            button.setButtonColor(getResources().getColor(R.color.colorOn));
+            button.setButtonColor(getResources().getColor(R.color.colorOnWhite));
         }
 
     }
     public void buttonOff(FButton button,String buttonKey){
-        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
+        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==3){
+            button.setText("OFF");
+            button.setCompoundDrawables( plug_off, null, null, null );
+            button.setButtonColor(getResources().getColor(R.color.colorItem));
+
+        }else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
             button.setText("OFF");
             button.setCompoundDrawables( fan_off, null, null, null );
             button.setButtonColor(getResources().getColor(R.color.colorItem));
