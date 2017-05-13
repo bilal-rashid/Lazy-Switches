@@ -17,23 +17,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import info.hoang8f.widget.FButton;
 
 public class BluetoothActivity extends AppCompatActivity {
@@ -41,11 +33,6 @@ public class BluetoothActivity extends AppCompatActivity {
 
     BluetoothService bluetoothService;
     BluetoothDevice device;
-
-//    @Bind(R.id.edit_text)
-//    EditText editText;
-//    @Bind(R.id.send_button)
-//    Button sendButton;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.toolbar_progress_bar)
@@ -82,17 +69,6 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
     Drawable bulb_on,bulb_off;
-
-//    @OnClick(R.id.send_button) void send() {
-//        // Send a item_message using content of the edit text widget
-//        String message = editText.getText().toString();
-//        if (message.trim().length() == 0) {
-//            editText.setError("Enter text first");
-//        } else {
-//            sendMessage(message);
-//            editText.setText("");
-//        }
-//    }
     public void motorOn(View view){
         sendMessage("a");
 
@@ -296,15 +272,15 @@ public class BluetoothActivity extends AppCompatActivity {
 
     public void buttonOn(FButton button){
         button.setText("ON");
-        button.setButtonColor(getResources().getColor(R.color.colorOn));
-//        button.setCompoundDrawables( bulb_on, null, null, null );
+//        button.setButtonColor(getResources().getColor(R.color.colorOn));
+        button.setCompoundDrawables( bulb_on, null, null, null );
 
     }
     public void buttonOff(FButton button){
 
         button.setText("OFF");
-        button.setButtonColor(getResources().getColor(R.color.colorItem));
-//        button.setCompoundDrawables( bulb_off, null, null, null );
+//        button.setButtonColor(getResources().getColor(R.color.colorItem));
+        button.setCompoundDrawables( bulb_off, null, null, null );
     }
     @Override protected void onStart() {
         super.onStart();
