@@ -22,6 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+
+import com.menthoven.arduinoandroid.utils.AppUtils;
+import com.menthoven.arduinoandroid.utils.Constant;
+
 import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
@@ -68,7 +72,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean showMessagesIsChecked = true;
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
-    Drawable bulb_on,bulb_off;
+    Drawable bulb_on,bulb_off,fan_on,fan_off;
     public void motorOn(View view){
         sendMessage("a");
 
@@ -84,6 +88,11 @@ public class BluetoothActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_7,2);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_8,2);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_2,2);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_3,1);
+//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_5,1);
 
 
         ButterKnife.bind(this);
@@ -114,21 +123,23 @@ public class BluetoothActivity extends AppCompatActivity {
 
         bulb_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.bulb_on);
         bulb_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.bulb_off);
-       // button2.setCompoundDrawables( bulb_off, null, null, null );
-
         bulb_off.setBounds( 0, 0, 60, 60 );
         bulb_on.setBounds( 0, 0, 60, 60 );
+        fan_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.electric_fan_on);
+        fan_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.electric_fan_off);
+        fan_off.setBounds( 0, 0, 60, 60 );
+        fan_on.setBounds( 0, 0, 60, 60 );
 
         setTitle(device.getName());
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(button1.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button1);
+                    buttonOn(button1, Constant.BUTTON_1);
                     sendMessage("A");
 
                 }else {
-                    buttonOff(button1);
+                    buttonOff(button1,Constant.BUTTON_1);
                     sendMessage("a");
 
                 }
@@ -139,11 +150,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button2.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button2);
+                    buttonOn(button2,Constant.BUTTON_2);
                     sendMessage("B");
 
                 }else {
-                    buttonOff(button2);
+                    buttonOff(button2,Constant.BUTTON_2);
                     sendMessage("b");
 
                 }
@@ -154,11 +165,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button3.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button3);
+                    buttonOn(button3,Constant.BUTTON_3);
                     sendMessage("C");
 
                 }else {
-                    buttonOff(button3);
+                    buttonOff(button3,Constant.BUTTON_3);
                     sendMessage("c");
 
                 }
@@ -169,11 +180,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button4.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button4);
+                    buttonOn(button4,Constant.BUTTON_4);
                     sendMessage("D");
 
                 }else {
-                    buttonOff(button4);
+                    buttonOff(button4,Constant.BUTTON_4);
                     sendMessage("d");
 
                 }
@@ -184,11 +195,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button5.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button5);
+                    buttonOn(button5,Constant.BUTTON_5);
                     sendMessage("E");
 
                 }else {
-                    buttonOff(button5);
+                    buttonOff(button5,Constant.BUTTON_5);
                     sendMessage("e");
 
                 }
@@ -199,11 +210,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button6.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button6);
+                    buttonOn(button6,Constant.BUTTON_6);
                     sendMessage("F");
 
                 }else {
-                    buttonOff(button6);
+                    buttonOff(button6,Constant.BUTTON_6);
                     sendMessage("f");
 
                 }
@@ -214,11 +225,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button7.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button7);
+                    buttonOn(button7,Constant.BUTTON_7);
                     sendMessage("G");
 
                 }else {
-                    buttonOff(button7);
+                    buttonOff(button7,Constant.BUTTON_7);
                     sendMessage("g");
 
                 }
@@ -229,11 +240,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button8.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button8);
+                    buttonOn(button8,Constant.BUTTON_8);
                     sendMessage("H");
 
                 }else {
-                    buttonOff(button8);
+                    buttonOff(button8,Constant.BUTTON_8);
                     sendMessage("h");
 
                 }
@@ -242,45 +253,68 @@ public class BluetoothActivity extends AppCompatActivity {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOn(button1);
-                buttonOn(button2);
-                buttonOn(button3);
-                buttonOn(button4);
-                buttonOn(button5);
-                buttonOn(button6);
-                buttonOn(button7);
-                buttonOn(button8);
+                buttonOn(button1,Constant.BUTTON_1);
+                buttonOn(button2,Constant.BUTTON_2);
+                buttonOn(button3,Constant.BUTTON_3);
+                buttonOn(button4,Constant.BUTTON_4);
+                buttonOn(button5,Constant.BUTTON_5);
+                buttonOn(button6,Constant.BUTTON_6);
+                buttonOn(button7,Constant.BUTTON_7);
+                buttonOn(button8,Constant.BUTTON_8);
                 sendMessage("ABCDEFGH");
             }
         });
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOff(button1);
-                buttonOff(button2);
-                buttonOff(button3);
-                buttonOff(button4);
-                buttonOff(button5);
-                buttonOff(button6);
-                buttonOff(button7);
-                buttonOff(button8);
+                buttonOff(button1,Constant.BUTTON_1);
+                buttonOff(button2,Constant.BUTTON_2);
+                buttonOff(button3,Constant.BUTTON_3);
+                buttonOff(button4,Constant.BUTTON_4);
+                buttonOff(button5,Constant.BUTTON_5);
+                buttonOff(button6,Constant.BUTTON_6);
+                buttonOff(button7,Constant.BUTTON_7);
+                buttonOff(button8,Constant.BUTTON_8);
                 sendMessage("abcdefgh");
             }
         });
 
     }
 
-    public void buttonOn(FButton button){
-        button.setText("ON");
-//        button.setButtonColor(getResources().getColor(R.color.colorOn));
-        button.setCompoundDrawables( bulb_on, null, null, null );
+    public void buttonOn(FButton button,String buttonKey){
+        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
+            button.setText("ON");
+            button.setCompoundDrawables( fan_on, null, null, null );
+            button.setButtonColor(getResources().getColor(R.color.colorOn));
+
+        }
+        else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==1){
+            button.setText("ON");
+            button.setCompoundDrawables( bulb_on, null, null, null );
+            button.setButtonColor(getResources().getColor(R.color.colorOn));
+
+        }else {
+            button.setText("ON");
+            button.setButtonColor(getResources().getColor(R.color.colorOn));
+        }
 
     }
-    public void buttonOff(FButton button){
+    public void buttonOff(FButton button,String buttonKey){
+        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
+            button.setText("OFF");
+            button.setCompoundDrawables( fan_off, null, null, null );
+            button.setButtonColor(getResources().getColor(R.color.colorItem));
 
-        button.setText("OFF");
-//        button.setButtonColor(getResources().getColor(R.color.colorItem));
-        button.setCompoundDrawables( bulb_off, null, null, null );
+        }
+        else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==1){
+            button.setText("OFF");
+            button.setCompoundDrawables( bulb_off, null, null, null );
+            button.setButtonColor(getResources().getColor(R.color.colorItem));
+
+        }else {
+            button.setText("OFF");
+            button.setButtonColor(getResources().getColor(R.color.colorItem));
+        }
     }
     @Override protected void onStart() {
         super.onStart();
