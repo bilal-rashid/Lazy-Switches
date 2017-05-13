@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
 import com.menthoven.arduinoandroid.utils.AppUtils;
@@ -72,13 +75,14 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean showMessagesIsChecked = true;
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
-    Drawable bulb_on,bulb_off,fan_on,fan_off,plug_on,plug_off;
-    public void motorOn(View view){
+    Drawable bulb_on, bulb_off, fan_on, fan_off, plug_on, plug_off;
+
+    public void motorOn(View view) {
         sendMessage("a");
 
     }
 
-    public void motorOff(View view){
+    public void motorOff(View view) {
 
         sendMessage("b");
 
@@ -88,24 +92,17 @@ public class BluetoothActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_7,2);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_8,2);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_2,2);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_3,1);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_5,1);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_1,3);
-//        AppUtils.saveButtonIcon(getApplicationContext(),Constant.BUTTON_6,3);
 
 
         ButterKnife.bind(this);
 
         snackTurnOn = Snackbar.make(coordinatorLayout, "Bluetooth turned off", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Turn On", new View.OnClickListener() {
-                    @Override public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                         enableBluetooth();
                     }
                 });
-
 
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -125,42 +122,61 @@ public class BluetoothActivity extends AppCompatActivity {
 
         bulb_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.bulb_on);
         bulb_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.bulb_off);
-        bulb_off.setBounds( 0, 0, 60, 60 );
-        bulb_on.setBounds( 0, 0, 60, 60 );
-        fan_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.electric_fan_on);
-        fan_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.electric_fan_off);
-        fan_off.setBounds( 0, 0, 60, 60 );
-        fan_on.setBounds( 0, 0, 60, 60 );
+        bulb_off.setBounds(0, 0, 60, 60);
+        bulb_on.setBounds(0, 0, 60, 60);
+        fan_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.fan_on);
+        fan_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.fan_off);
+        fan_off.setBounds(0, 0, 60, 60);
+        fan_on.setBounds(0, 0, 60, 60);
         plug_on = ContextCompat.getDrawable(getApplicationContext(), R.drawable.plug_on);
         plug_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.plug_off);
-        plug_on.setBounds( 0, 0, 60, 60 );
-        plug_off.setBounds( 0, 0, 60, 60 );
+        plug_on.setBounds(0, 0, 60, 60);
+        plug_off.setBounds(0, 0, 60, 60);
+
+        setLongclickListener(button1, Constant.BUTTON_1);
+        setLongclickListener(button2, Constant.BUTTON_2);
+        setLongclickListener(button3, Constant.BUTTON_3);
+        setLongclickListener(button4, Constant.BUTTON_4);
+        setLongclickListener(button5, Constant.BUTTON_5);
+        setLongclickListener(button6, Constant.BUTTON_6);
+        setLongclickListener(button7, Constant.BUTTON_7);
+        setLongclickListener(button8, Constant.BUTTON_8);
+
+        buttonOff(button1,Constant.BUTTON_1);
+        buttonOff(button2,Constant.BUTTON_2);
+        buttonOff(button3,Constant.BUTTON_3);
+        buttonOff(button4,Constant.BUTTON_4);
+        buttonOff(button5,Constant.BUTTON_5);
+        buttonOff(button6,Constant.BUTTON_6);
+        buttonOff(button7,Constant.BUTTON_7);
+        buttonOff(button8,Constant.BUTTON_8);
 
         setTitle(device.getName());
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button1.getText().toString().equalsIgnoreCase("OFF")){
+                if (button1.getText().toString().equalsIgnoreCase("OFF")) {
                     buttonOn(button1, Constant.BUTTON_1);
                     sendMessage("A");
 
-                }else {
-                    buttonOff(button1,Constant.BUTTON_1);
+                } else {
+                    buttonOff(button1, Constant.BUTTON_1);
                     sendMessage("a");
 
                 }
+
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button2.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button2,Constant.BUTTON_2);
+                if (button2.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button2, Constant.BUTTON_2);
                     sendMessage("B");
 
-                }else {
-                    buttonOff(button2,Constant.BUTTON_2);
+                } else {
+                    buttonOff(button2, Constant.BUTTON_2);
                     sendMessage("b");
 
                 }
@@ -170,12 +186,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button3.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button3,Constant.BUTTON_3);
+                if (button3.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button3, Constant.BUTTON_3);
                     sendMessage("C");
 
-                }else {
-                    buttonOff(button3,Constant.BUTTON_3);
+                } else {
+                    buttonOff(button3, Constant.BUTTON_3);
                     sendMessage("c");
 
                 }
@@ -185,12 +201,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button4.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button4,Constant.BUTTON_4);
+                if (button4.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button4, Constant.BUTTON_4);
                     sendMessage("D");
 
-                }else {
-                    buttonOff(button4,Constant.BUTTON_4);
+                } else {
+                    buttonOff(button4, Constant.BUTTON_4);
                     sendMessage("d");
 
                 }
@@ -200,12 +216,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button5.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button5,Constant.BUTTON_5);
+                if (button5.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button5, Constant.BUTTON_5);
                     sendMessage("E");
 
-                }else {
-                    buttonOff(button5,Constant.BUTTON_5);
+                } else {
+                    buttonOff(button5, Constant.BUTTON_5);
                     sendMessage("e");
 
                 }
@@ -215,12 +231,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button6.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button6,Constant.BUTTON_6);
+                if (button6.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button6, Constant.BUTTON_6);
                     sendMessage("F");
 
-                }else {
-                    buttonOff(button6,Constant.BUTTON_6);
+                } else {
+                    buttonOff(button6, Constant.BUTTON_6);
                     sendMessage("f");
 
                 }
@@ -230,12 +246,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button7.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button7,Constant.BUTTON_7);
+                if (button7.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button7, Constant.BUTTON_7);
                     sendMessage("G");
 
-                }else {
-                    buttonOff(button7,Constant.BUTTON_7);
+                } else {
+                    buttonOff(button7, Constant.BUTTON_7);
                     sendMessage("g");
 
                 }
@@ -245,12 +261,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(button8.getText().toString().equalsIgnoreCase("OFF")){
-                    buttonOn(button8,Constant.BUTTON_8);
+                if (button8.getText().toString().equalsIgnoreCase("OFF")) {
+                    buttonOn(button8, Constant.BUTTON_8);
                     sendMessage("H");
 
-                }else {
-                    buttonOff(button8,Constant.BUTTON_8);
+                } else {
+                    buttonOff(button8, Constant.BUTTON_8);
                     sendMessage("h");
 
                 }
@@ -259,80 +275,146 @@ public class BluetoothActivity extends AppCompatActivity {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOn(button1,Constant.BUTTON_1);
-                buttonOn(button2,Constant.BUTTON_2);
-                buttonOn(button3,Constant.BUTTON_3);
-                buttonOn(button4,Constant.BUTTON_4);
-                buttonOn(button5,Constant.BUTTON_5);
-                buttonOn(button6,Constant.BUTTON_6);
-                buttonOn(button7,Constant.BUTTON_7);
-                buttonOn(button8,Constant.BUTTON_8);
+                buttonOn(button1, Constant.BUTTON_1);
+                buttonOn(button2, Constant.BUTTON_2);
+                buttonOn(button3, Constant.BUTTON_3);
+                buttonOn(button4, Constant.BUTTON_4);
+                buttonOn(button5, Constant.BUTTON_5);
+                buttonOn(button6, Constant.BUTTON_6);
+                buttonOn(button7, Constant.BUTTON_7);
+                buttonOn(button8, Constant.BUTTON_8);
                 sendMessage("ABCDEFGH");
             }
         });
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOff(button1,Constant.BUTTON_1);
-                buttonOff(button2,Constant.BUTTON_2);
-                buttonOff(button3,Constant.BUTTON_3);
-                buttonOff(button4,Constant.BUTTON_4);
-                buttonOff(button5,Constant.BUTTON_5);
-                buttonOff(button6,Constant.BUTTON_6);
-                buttonOff(button7,Constant.BUTTON_7);
-                buttonOff(button8,Constant.BUTTON_8);
+                buttonOff(button1, Constant.BUTTON_1);
+                buttonOff(button2, Constant.BUTTON_2);
+                buttonOff(button3, Constant.BUTTON_3);
+                buttonOff(button4, Constant.BUTTON_4);
+                buttonOff(button5, Constant.BUTTON_5);
+                buttonOff(button6, Constant.BUTTON_6);
+                buttonOff(button7, Constant.BUTTON_7);
+                buttonOff(button8, Constant.BUTTON_8);
                 sendMessage("abcdefgh");
             }
         });
 
     }
 
-    public void buttonOn(FButton button,String buttonKey){
-        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==3){
+    public void buttonOn(FButton button, String buttonKey) {
+        if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 3) {
             button.setText("ON");
-            button.setCompoundDrawables( plug_on, null, null, null );
+            button.setCompoundDrawables(plug_on, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorOn));
 
-        } else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
+        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 2) {
             button.setText("ON");
-            button.setCompoundDrawables( fan_on, null, null, null );
+            button.setCompoundDrawables(fan_on, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorOn));
 
-        }
-        else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==1){
+        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 1) {
             button.setText("ON");
-            button.setCompoundDrawables( bulb_on, null, null, null );
+            button.setCompoundDrawables(bulb_on, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorOn));
 
-        }else {
+        } else {
             button.setText("ON");
-            button.setButtonColor(getResources().getColor(R.color.colorOnWhite));
+            button.setCompoundDrawables(null, null, null, null);
+            button.setButtonColor(getResources().getColor(R.color.colorOn));
         }
 
     }
-    public void buttonOff(FButton button,String buttonKey){
-        if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==3){
+
+    public void buttonOff(FButton button, String buttonKey) {
+        if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 3) {
             button.setText("OFF");
-            button.setCompoundDrawables( plug_off, null, null, null );
+            button.setCompoundDrawables(plug_off, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorItem));
 
-        }else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==2){
+        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 2) {
             button.setText("OFF");
-            button.setCompoundDrawables( fan_off, null, null, null );
+            button.setCompoundDrawables(fan_off, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorItem));
 
-        }
-        else if(AppUtils.getButtonIcon(getApplicationContext(),buttonKey)==1){
+        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 1) {
             button.setText("OFF");
-            button.setCompoundDrawables( bulb_off, null, null, null );
+            button.setCompoundDrawables(bulb_off, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorItem));
 
-        }else {
+        } else {
             button.setText("OFF");
+            button.setCompoundDrawables(null, null, null, null);
             button.setButtonColor(getResources().getColor(R.color.colorItem));
         }
     }
-    @Override protected void onStart() {
+
+    public void setLongclickListener(FButton button, final String key) {
+
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                final FButton btn = (FButton) view;
+                final AlertDialog.Builder builderSingle = new AlertDialog.Builder(BluetoothActivity.this);
+                builderSingle.setTitle("Select Tag");
+
+                final ArrayAdapter<String> arrayAdapter =
+                        new ArrayAdapter<String>(BluetoothActivity.this, android.R.layout.select_dialog_singlechoice);
+                arrayAdapter.add("Light");
+                arrayAdapter.add("Fan");
+                arrayAdapter.add("Socket");
+                arrayAdapter.add("None");
+
+                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        if (strName.equals("Light")) {
+                            AppUtils.saveButtonIcon(getApplicationContext(), key, 1);
+                            if (btn.getText().toString().equalsIgnoreCase("ON")) {
+                                btn.setCompoundDrawables(bulb_on, null, null, null);
+                            } else {
+                                btn.setCompoundDrawables(bulb_off, null, null, null);
+                            }
+                        } else if (strName.equals("Fan")) {
+                            AppUtils.saveButtonIcon(getApplicationContext(), key, 2);
+                            if (btn.getText().toString().equalsIgnoreCase("ON")) {
+                                btn.setCompoundDrawables(fan_on, null, null, null);
+                            } else {
+                                btn.setCompoundDrawables(fan_off, null, null, null);
+                            }
+                        } else if (strName.equals("Socket")) {
+                            AppUtils.saveButtonIcon(getApplicationContext(), key, 3);
+                            if (btn.getText().toString().equalsIgnoreCase("ON")) {
+                                btn.setCompoundDrawables(plug_on, null, null, null);
+                            } else {
+                                btn.setCompoundDrawables(plug_off, null, null, null);
+                            }
+                        } else {
+                            AppUtils.saveButtonIcon(getApplicationContext(), key, 0);
+                            btn.setCompoundDrawables(null, null, null, null);
+                        }
+
+                    }
+                });
+                builderSingle.show();
+                return true;
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStart() {
         super.onStart();
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -342,7 +424,8 @@ public class BluetoothActivity extends AppCompatActivity {
         Log.d(Constants.TAG, "Connecting");
     }
 
-    @Override protected void onStop() {
+    @Override
+    protected void onStop() {
         super.onStop();
         if (bluetoothService != null) {
             bluetoothService.stop();
@@ -351,7 +434,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
         unregisterReceiver(mReceiver);
     }
-    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_ENABLE_BT) {
             if (resultCode == RESULT_OK) {
@@ -360,7 +445,8 @@ public class BluetoothActivity extends AppCompatActivity {
                 setStatus("Error");
                 Snackbar.make(coordinatorLayout, "Failed to enable bluetooth", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Try Again", new View.OnClickListener() {
-                            @Override public void onClick(View v) {
+                            @Override
+                            public void onClick(View v) {
                                 enableBluetooth();
                             }
                         }).show();
@@ -375,7 +461,8 @@ public class BluetoothActivity extends AppCompatActivity {
         if (bluetoothService.getState() != Constants.STATE_CONNECTED) {
             Snackbar.make(coordinatorLayout, "You are not connected", Snackbar.LENGTH_LONG)
                     .setAction("Connect", new View.OnClickListener() {
-                        @Override public void onClick(View v) {
+                        @Override
+                        public void onClick(View v) {
                             reconnect();
                         }
                     }).show();
@@ -433,7 +520,7 @@ public class BluetoothActivity extends AppCompatActivity {
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                  //  ChatMessage messageWrite = new ChatMessage("Me", writeMessage);
+                    //  ChatMessage messageWrite = new ChatMessage("Me", writeMessage);
                     //activity.addMessageToAdapter(messageWrite);
                     break;
                 case Constants.MESSAGE_READ:
@@ -450,7 +537,8 @@ public class BluetoothActivity extends AppCompatActivity {
                 case Constants.MESSAGE_SNACKBAR:
                     Snackbar.make(activity.coordinatorLayout, msg.getData().getString(Constants.SNACKBAR), Snackbar.LENGTH_LONG)
                             .setAction("Connect", new View.OnClickListener() {
-                                @Override public void onClick(View v) {
+                                @Override
+                                public void onClick(View v) {
                                     activity.reconnect();
                                 }
                             }).show();
@@ -505,7 +593,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 reconnect();
                 return true;
             case R.id.action_clear:
-               // chatAdapter.clear();
+                // chatAdapter.clear();
                 return true;
             case R.id.checkable_auto_scroll:
                 autoScrollIsChecked = !item.isChecked();
@@ -518,7 +606,7 @@ public class BluetoothActivity extends AppCompatActivity {
             case R.id.checkable_show_time:
                 showTimeIsChecked = !item.isChecked();
                 item.setChecked(showTimeIsChecked);
-               // chatAdapter.notifyDataSetChanged();
+                // chatAdapter.notifyDataSetChanged();
                 return true;
         }
         return super.onOptionsItemSelected(item);

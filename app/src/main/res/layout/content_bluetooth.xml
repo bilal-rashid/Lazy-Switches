@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -64,7 +64,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -84,7 +84,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -97,7 +97,7 @@
                 <!--<Button-->
                 <!--android:layout_width="0dp"-->
                 <!--android:text="OFF"-->
-                <!--android:textSize="35sp"-->
+                <!--android:textSize="25sp"-->
                 <!--style="@style/Widget.AppCompat.Button.Colored"-->
                 <!--android:layout_height="match_parent"-->
                 <!--android:layout_weight="1" />-->
@@ -125,7 +125,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
 
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
@@ -145,7 +145,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -165,7 +165,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -177,7 +177,7 @@
                 <!--<Button-->
                 <!--android:layout_width="0dp"-->
                 <!--android:text="OFF"-->
-                <!--android:textSize="35sp"-->
+                <!--android:textSize="25sp"-->
                 <!--style="@style/Widget.AppCompat.Button.Colored"-->
                 <!--android:layout_height="match_parent"-->
                 <!--android:layout_weight="1" />-->
@@ -205,7 +205,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -227,7 +227,7 @@
                     android:layout_weight="1"
                     android:text="OFF"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
@@ -240,7 +240,7 @@
                 <!--<Button-->
                 <!--android:layout_width="0dp"-->
                 <!--android:text="OFF"-->
-                <!--android:textSize="35sp"-->
+                <!--android:textSize="25sp"-->
                 <!--style="@style/Widget.AppCompat.Button.Colored"-->
                 <!--android:layout_height="match_parent"-->
                 <!--android:layout_weight="1" />-->
@@ -268,7 +268,7 @@
                     android:layout_weight="1"
                     android:text="All On"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorOn"
                     fbutton:shadowColor="@color/shadow"
@@ -290,7 +290,7 @@
                     android:layout_weight="1"
                     android:text="All Off"
                     android:textColor="@android:color/black"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorOn"
                     fbutton:shadowColor="@color/shadow"
