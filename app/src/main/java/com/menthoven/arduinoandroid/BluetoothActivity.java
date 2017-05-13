@@ -148,13 +148,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button1.getText().toString().equalsIgnoreCase("OFF")){
-                    button1.setText("ON");
-                    button1.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button1);
                     sendMessage("A");
 
                 }else {
-                    button1.setText("OFF");
-                    button1.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button1);
                     sendMessage("a");
 
                 }
@@ -165,13 +163,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button2.getText().toString().equalsIgnoreCase("OFF")){
-                    button2.setText("ON");
-                    button2.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button2);
                     sendMessage("B");
 
                 }else {
-                    button2.setText("OFF");
-                    button2.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button2);
                     sendMessage("b");
 
                 }
@@ -182,13 +178,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button3.getText().toString().equalsIgnoreCase("OFF")){
-                    button3.setText("ON");
-                    button3.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button3);
                     sendMessage("C");
 
                 }else {
-                    button3.setText("OFF");
-                    button3.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button3);
                     sendMessage("c");
 
                 }
@@ -199,13 +193,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button4.getText().toString().equalsIgnoreCase("OFF")){
-                    button4.setText("ON");
-                    button4.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button4);
                     sendMessage("D");
 
                 }else {
-                    button4.setText("OFF");
-                    button4.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button4);
                     sendMessage("d");
 
                 }
@@ -216,13 +208,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button5.getText().toString().equalsIgnoreCase("OFF")){
-                    button5.setText("ON");
-                    button5.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button5);
                     sendMessage("E");
 
                 }else {
-                    button5.setText("OFF");
-                    button5.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button5);
                     sendMessage("e");
 
                 }
@@ -233,13 +223,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button6.getText().toString().equalsIgnoreCase("OFF")){
-                    button6.setText("ON");
-                    button6.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button6);
                     sendMessage("F");
 
                 }else {
-                    button6.setText("OFF");
-                    button6.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button6);
                     sendMessage("f");
 
                 }
@@ -250,13 +238,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button7.getText().toString().equalsIgnoreCase("OFF")){
-                    button7.setText("ON");
-                    button7.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button7);
                     sendMessage("G");
 
                 }else {
-                    button7.setText("OFF");
-                    button7.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button7);
                     sendMessage("g");
 
                 }
@@ -267,13 +253,11 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button8.getText().toString().equalsIgnoreCase("OFF")){
-                    button8.setText("ON");
-                    button8.setButtonColor(getResources().getColor(R.color.colorOn));
+                    buttonOn(button8);
                     sendMessage("H");
 
                 }else {
-                    button8.setText("OFF");
-                    button8.setButtonColor(getResources().getColor(R.color.colorItem));
+                    buttonOff(button8);
                     sendMessage("h");
 
                 }
@@ -282,50 +266,46 @@ public class BluetoothActivity extends AppCompatActivity {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button1.setText("ON");
-                button1.setButtonColor(getResources().getColor(R.color.colorOn));
-                button2.setText("ON");
-                button2.setButtonColor(getResources().getColor(R.color.colorOn));
-                button3.setText("ON");
-                button3.setButtonColor(getResources().getColor(R.color.colorOn));
-                button4.setText("ON");
-                button4.setButtonColor(getResources().getColor(R.color.colorOn));
-                button5.setText("ON");
-                button5.setButtonColor(getResources().getColor(R.color.colorOn));
-                button6.setText("ON");
-                button6.setButtonColor(getResources().getColor(R.color.colorOn));
-                button7.setText("ON");
-                button7.setButtonColor(getResources().getColor(R.color.colorOn));
-                button8.setText("ON");
-                button8.setButtonColor(getResources().getColor(R.color.colorOn));
+                buttonOn(button1);
+                buttonOn(button2);
+                buttonOn(button3);
+                buttonOn(button4);
+                buttonOn(button5);
+                buttonOn(button6);
+                buttonOn(button7);
+                buttonOn(button8);
                 sendMessage("ABCDEFGH");
             }
         });
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button1.setText("OFF");
-                button1.setButtonColor(getResources().getColor(R.color.colorItem));
-                button2.setText("OFF");
-                button2.setButtonColor(getResources().getColor(R.color.colorItem));
-                button3.setText("OFF");
-                button3.setButtonColor(getResources().getColor(R.color.colorItem));
-                button4.setText("OFF");
-                button4.setButtonColor(getResources().getColor(R.color.colorItem));
-                button5.setText("OFF");
-                button5.setButtonColor(getResources().getColor(R.color.colorItem));
-                button6.setText("OFF");
-                button6.setButtonColor(getResources().getColor(R.color.colorItem));
-                button7.setText("OFF");
-                button7.setButtonColor(getResources().getColor(R.color.colorItem));
-                button8.setText("OFF");
-                button8.setButtonColor(getResources().getColor(R.color.colorItem));
+                buttonOff(button1);
+                buttonOff(button2);
+                buttonOff(button3);
+                buttonOff(button4);
+                buttonOff(button5);
+                buttonOff(button6);
+                buttonOff(button7);
+                buttonOff(button8);
                 sendMessage("abcdefgh");
             }
         });
 
     }
 
+    public void buttonOn(FButton button){
+        button.setText("ON");
+        button.setButtonColor(getResources().getColor(R.color.colorOn));
+//        button.setCompoundDrawables( bulb_on, null, null, null );
+
+    }
+    public void buttonOff(FButton button){
+
+        button.setText("OFF");
+        button.setButtonColor(getResources().getColor(R.color.colorItem));
+//        button.setCompoundDrawables( bulb_off, null, null, null );
+    }
     @Override protected void onStart() {
         super.onStart();
         IntentFilter filter = new IntentFilter();
