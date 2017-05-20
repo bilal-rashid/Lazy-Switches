@@ -1,5 +1,8 @@
 package com.menthoven.arduinoandroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -11,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -25,11 +29,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.menthoven.arduinoandroid.Recievers.AlarmReceiver;
 import com.menthoven.arduinoandroid.utils.AppUtils;
 import com.menthoven.arduinoandroid.utils.Constant;
 
 import java.lang.ref.WeakReference;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,6 +80,15 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
     Drawable bulb_on, bulb_off, fan_on, fan_off, plug_on, plug_off;
+    public static String State;
+    TimePicker myTimePicker;
+    TimePickerDialog timePickerDialog;
+    final static int RQS_1 = 1;
+
+
+    PowerManager.WakeLock mWakeLock;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +106,6 @@ public class BluetoothActivity extends AppCompatActivity {
                 });
 
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setSupportActionBar(toolbar);
 
@@ -100,6 +116,10 @@ public class BluetoothActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         device = getIntent().getExtras().getParcelable(Constants.EXTRA_DEVICE);
+        State=getIntent().getStringExtra(Constants.STATE_DEVICE);
+        if(!State.equals("null")){
+            reconnect();
+        }
 
         bluetoothService = new BluetoothService(handler, device);
 
@@ -396,6 +416,56 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     }
+    private void openTimePickerDialog(boolean is24r) {
+        Calendar calendar = Calendar.getInstance();
+
+        timePickerDialog = new TimePickerDialog(BluetoothActivity.this,
+                onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), is24r);
+        timePickerDialog.setTitle("Set Alarm Time");
+
+        timePickerDialog.show();
+
+    }
+
+    TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            Calendar calNow = Calendar.getInstance();
+            Calendar calSet = (Calendar) calNow.clone();
+
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+
+            if (calSet.compareTo(calNow) <= 0) {
+                // Today Set time passed, count to tomorrow
+                calSet.add(Calendar.DATE, 1);
+            }
+
+            setAlarm(calSet);
+        }
+    };
+
+    private void setAlarm(Calendar targetCal) {
+
+//        textAlarmPrompt.setText("\n\n***\n" + "Alarm is set "
+//                + targetCal.getTime() + "\n" + "***\n");
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        intent.putExtra(Constants.EXTRA_DEVICE, device);
+        intent.putExtra(Constants.STATE_DEVICE,"abcd");
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getBaseContext(), RQS_1, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
+                pendingIntent);
+
+    }
 
     @Override
     protected void onStart() {
@@ -404,8 +474,12 @@ public class BluetoothActivity extends AppCompatActivity {
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
 
+        Log.d("Alarm","Onstart");
         bluetoothService.connect();
         Log.d(Constants.TAG, "Connecting");
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
+        wakeLock.acquire();
     }
 
     @Override
@@ -459,8 +533,8 @@ public class BluetoothActivity extends AppCompatActivity {
 //                        }
 //                    }).show();
 
-//            byte[] send = message.getBytes();
-//            bluetoothService.write(send);
+            byte[] send = message.getBytes();
+            bluetoothService.write(send);
         }
     }
 
@@ -484,6 +558,9 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.setStatus("Connected");
                             activity.reconnectButton.setVisible(false);
                             activity.toolbalProgressBar.setVisibility(View.GONE);
+//                            Toast.makeText(activity.getApplicationContext(),State,Toast.LENGTH_LONG).show();
+                            activity.sendMessage("a");
+
                             break;
                         case Constants.STATE_CONNECTING:
                             activity.setStatus("Connecting");
@@ -494,9 +571,16 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.toolbalProgressBar.setVisibility(View.GONE);
                             break;
                         case Constants.STATE_ERROR:
-                            activity.setStatus("Error");
-                            activity.reconnectButton.setVisible(true);
-                            activity.toolbalProgressBar.setVisibility(View.GONE);
+                            try {
+
+                                activity.setStatus("Error");
+                                activity.reconnectButton.setVisible(true);
+                                activity.toolbalProgressBar.setVisibility(View.GONE);
+                            }catch (Exception e){}
+
+                            if(!activity.State.equals("null")) {
+                                activity.reconnect();
+                            }
                             break;
                     }
                     break;
@@ -563,7 +647,7 @@ public class BluetoothActivity extends AppCompatActivity {
         reconnectButton = menu.findItem(R.id.action_reconnect);
         menu.findItem(R.id.action_clear).setVisible(false);
         menu.findItem(R.id.checkable_auto_scroll).setVisible(false);
-        menu.findItem(R.id.checkable_show_messages).setVisible(false);
+        menu.findItem(R.id.checkable_show_messages).setVisible(true);
         menu.findItem(R.id.checkable_show_time).setVisible(false);
         return true;
     }
@@ -588,8 +672,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 item.setChecked(autoScrollIsChecked);
                 return true;
             case R.id.checkable_show_messages:
-                showMessagesIsChecked = !item.isChecked();
-                item.setChecked(showMessagesIsChecked);
+                openTimePickerDialog(false);
                 return true;
             case R.id.checkable_show_time:
                 showTimeIsChecked = !item.isChecked();
@@ -631,9 +714,19 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     private void reconnect() {
-        reconnectButton.setVisible(false);
-        bluetoothService.stop();
-        bluetoothService.connect();
+        try {
+            reconnectButton.setVisible(false);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            bluetoothService.stop();
+            bluetoothService.connect();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }
