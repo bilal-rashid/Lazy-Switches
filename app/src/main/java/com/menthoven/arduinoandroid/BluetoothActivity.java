@@ -1,6 +1,7 @@
 package com.menthoven.arduinoandroid;
 
 import android.app.AlarmManager;
+import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -11,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -117,9 +119,6 @@ public class BluetoothActivity extends AppCompatActivity {
 
         device = getIntent().getExtras().getParcelable(Constants.EXTRA_DEVICE);
         State=getIntent().getStringExtra(Constants.STATE_DEVICE);
-        if(!State.equals("null")){
-            reconnect();
-        }
 
         bluetoothService = new BluetoothService(handler, device);
 
@@ -478,8 +477,22 @@ public class BluetoothActivity extends AppCompatActivity {
         bluetoothService.connect();
         Log.d(Constants.TAG, "Connecting");
         PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
-        wakeLock.acquire();
+        mWakeLock = pm.newWakeLock((PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
+        mWakeLock.acquire();
+//        KeyguardManager manager = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+//        KeyguardManager.KeyguardLock lock = manager.newKeyguardLock("abc");
+//        lock.disableKeyguard();
+    }
+
+    public void stopActivity(){
+//        mWakeLock.release();
+        if (bluetoothService != null) {
+            bluetoothService.stop();
+            Log.d(Constants.TAG, "Stopping");
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAndRemoveTask();
+        }
     }
 
     @Override
@@ -559,7 +572,10 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.reconnectButton.setVisible(false);
                             activity.toolbalProgressBar.setVisibility(View.GONE);
 //                            Toast.makeText(activity.getApplicationContext(),State,Toast.LENGTH_LONG).show();
-                            activity.sendMessage("a");
+                            if(!activity.State.equals("null")) {
+                                activity.sendMessage("a");
+                                activity.stopActivity();
+                            }
 
                             break;
                         case Constants.STATE_CONNECTING:
@@ -579,6 +595,7 @@ public class BluetoothActivity extends AppCompatActivity {
                             }catch (Exception e){}
 
                             if(!activity.State.equals("null")) {
+                                //activity.State="null";
                                 activity.reconnect();
                             }
                             break;
@@ -603,13 +620,15 @@ public class BluetoothActivity extends AppCompatActivity {
                     break;
 
                 case Constants.MESSAGE_SNACKBAR:
-                    Snackbar.make(activity.coordinatorLayout, msg.getData().getString(Constants.SNACKBAR), Snackbar.LENGTH_LONG)
-                            .setAction("Connect", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    activity.reconnect();
-                                }
-                            }).show();
+                    try {
+                        Snackbar.make(activity.coordinatorLayout, msg.getData().getString(Constants.SNACKBAR), Snackbar.LENGTH_LONG)
+                                .setAction("Connect", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        activity.reconnect();
+                                    }
+                                }).show();
+                    }catch (Exception e){e.printStackTrace();}
 
                     break;
             }
