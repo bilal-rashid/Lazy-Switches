@@ -574,6 +574,7 @@ public class BluetoothActivity extends AppCompatActivity {
 //                            Toast.makeText(activity.getApplicationContext(),State,Toast.LENGTH_LONG).show();
                             if(!activity.State.equals("null")) {
                                 activity.sendMessage("a");
+                                activity.State="null";
                                 activity.stopActivity();
                             }
 
@@ -595,7 +596,7 @@ public class BluetoothActivity extends AppCompatActivity {
                             }catch (Exception e){}
 
                             if(!activity.State.equals("null")) {
-                                //activity.State="null";
+
                                 activity.reconnect();
                             }
                             break;
