@@ -450,9 +450,15 @@ public class BluetoothActivity extends AppCompatActivity {
     };
 
     private void setAlarm(Calendar targetCal) {
+//        Calendar calNow = ;
+        long timeInMilis=targetCal.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
+        long seconds = timeInMilis / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        String time =  hours % 24 + " hours," + minutes % 60 + " minutes," + seconds % 60+" seconds";
 
-//        textAlarmPrompt.setText("\n\n***\n" + "Alarm is set "
-//                + targetCal.getTime() + "\n" + "***\n");
+
+        Toast.makeText(getApplicationContext(),"Alarm set to "+(time)+" from now",Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
         intent.putExtra(Constants.EXTRA_DEVICE, device);
