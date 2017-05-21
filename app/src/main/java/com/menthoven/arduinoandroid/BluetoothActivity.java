@@ -458,7 +458,7 @@ public class BluetoothActivity extends AppCompatActivity {
         String time =  hours % 24 + " hours," + minutes % 60 + " minutes," + seconds % 60+" seconds";
 
 
-        Toast.makeText(getApplicationContext(),"Alarm set to "+(time)+" from now",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Alarm set to "+(time)+" from now",Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
         intent.putExtra(Constants.EXTRA_DEVICE, device);
