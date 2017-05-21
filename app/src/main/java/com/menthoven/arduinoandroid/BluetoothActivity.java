@@ -486,12 +486,14 @@ public class BluetoothActivity extends AppCompatActivity {
 
     public void stopActivity(){
 //        mWakeLock.release();
-        if (bluetoothService != null) {
-            bluetoothService.stop();
-            Log.d(Constants.TAG, "Stopping");
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            bluetoothService.stop();
+
             finishAndRemoveTask();
+        }
+        else {
+            bluetoothService.stop();
+            finish();
         }
     }
 
@@ -575,6 +577,11 @@ public class BluetoothActivity extends AppCompatActivity {
                             if(!activity.State.equals("null")) {
                                 activity.sendMessage("a");
                                 activity.State="null";
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 activity.stopActivity();
                             }
 
