@@ -570,8 +570,8 @@ public class BluetoothActivity extends AppCompatActivity {
 //                    }).show();
 
 
-//            byte[] send = message.getBytes();
-//            bluetoothService.write(send);
+            byte[] send = message.getBytes();
+            bluetoothService.write(send);
 
         }
     }
