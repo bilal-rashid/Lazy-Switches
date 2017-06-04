@@ -89,6 +89,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     PowerManager.WakeLock mWakeLock;
+    public String buttons_state = "abcdefgh";
 
 
     @Override
@@ -108,7 +109,6 @@ public class BluetoothActivity extends AppCompatActivity {
                 });
 
 
-
         setSupportActionBar(toolbar);
 
         myHandler handler = new myHandler(BluetoothActivity.this);
@@ -118,7 +118,7 @@ public class BluetoothActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         device = getIntent().getExtras().getParcelable(Constants.EXTRA_DEVICE);
-        State=getIntent().getStringExtra(Constants.STATE_DEVICE);
+        State = getIntent().getStringExtra(Constants.STATE_DEVICE);
 
         bluetoothService = new BluetoothService(handler, device);
 
@@ -145,26 +145,26 @@ public class BluetoothActivity extends AppCompatActivity {
         setLongClickListener(button7, Constant.BUTTON_7);
         setLongClickListener(button8, Constant.BUTTON_8);
 
-        buttonOff(button1,Constant.BUTTON_1);
-        buttonOff(button2,Constant.BUTTON_2);
-        buttonOff(button3,Constant.BUTTON_3);
-        buttonOff(button4,Constant.BUTTON_4);
-        buttonOff(button5,Constant.BUTTON_5);
-        buttonOff(button6,Constant.BUTTON_6);
-        buttonOff(button7,Constant.BUTTON_7);
-        buttonOff(button8,Constant.BUTTON_8);
+        buttonOff(button1, Constant.BUTTON_1);
+        buttonOff(button2, Constant.BUTTON_2);
+        buttonOff(button3, Constant.BUTTON_3);
+        buttonOff(button4, Constant.BUTTON_4);
+        buttonOff(button5, Constant.BUTTON_5);
+        buttonOff(button6, Constant.BUTTON_6);
+        buttonOff(button7, Constant.BUTTON_7);
+        buttonOff(button8, Constant.BUTTON_8);
 
         setTitle(device.getName());
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (button1.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button1, Constant.BUTTON_1);
                     sendMessage("A");
+                    buttonOn(button1, Constant.BUTTON_1);
 
                 } else {
-                    buttonOff(button1, Constant.BUTTON_1);
                     sendMessage("a");
+                    buttonOff(button1, Constant.BUTTON_1);
 
                 }
 
@@ -175,12 +175,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button2.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button2, Constant.BUTTON_2);
                     sendMessage("B");
+                    buttonOn(button2, Constant.BUTTON_2);
 
                 } else {
-                    buttonOff(button2, Constant.BUTTON_2);
                     sendMessage("b");
+                    buttonOff(button2, Constant.BUTTON_2);
 
                 }
             }
@@ -190,12 +190,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button3.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button3, Constant.BUTTON_3);
                     sendMessage("C");
+                    buttonOn(button3, Constant.BUTTON_3);
 
                 } else {
-                    buttonOff(button3, Constant.BUTTON_3);
                     sendMessage("c");
+                    buttonOff(button3, Constant.BUTTON_3);
 
                 }
             }
@@ -205,12 +205,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button4.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button4, Constant.BUTTON_4);
                     sendMessage("D");
+                    buttonOn(button4, Constant.BUTTON_4);
 
                 } else {
-                    buttonOff(button4, Constant.BUTTON_4);
                     sendMessage("d");
+                    buttonOff(button4, Constant.BUTTON_4);
 
                 }
             }
@@ -220,12 +220,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button5.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button5, Constant.BUTTON_5);
                     sendMessage("E");
+                    buttonOn(button5, Constant.BUTTON_5);
 
                 } else {
-                    buttonOff(button5, Constant.BUTTON_5);
                     sendMessage("e");
+                    buttonOff(button5, Constant.BUTTON_5);
 
                 }
             }
@@ -235,12 +235,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button6.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button6, Constant.BUTTON_6);
                     sendMessage("F");
+                    buttonOn(button6, Constant.BUTTON_6);
 
                 } else {
-                    buttonOff(button6, Constant.BUTTON_6);
                     sendMessage("f");
+                    buttonOff(button6, Constant.BUTTON_6);
 
                 }
             }
@@ -250,12 +250,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button7.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button7, Constant.BUTTON_7);
                     sendMessage("G");
+                    buttonOn(button7, Constant.BUTTON_7);
 
                 } else {
-                    buttonOff(button7, Constant.BUTTON_7);
                     sendMessage("g");
+                    buttonOff(button7, Constant.BUTTON_7);
 
                 }
             }
@@ -265,12 +265,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button8.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button8, Constant.BUTTON_8);
                     sendMessage("H");
+                    buttonOn(button8, Constant.BUTTON_8);
 
                 } else {
-                    buttonOff(button8, Constant.BUTTON_8);
                     sendMessage("h");
+                    buttonOff(button8, Constant.BUTTON_8);
 
                 }
             }
@@ -415,6 +415,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     }
+
     private void openTimePickerDialog(boolean is24r) {
         Calendar calendar = Calendar.getInstance();
 
@@ -451,18 +452,18 @@ public class BluetoothActivity extends AppCompatActivity {
 
     private void setAlarm(Calendar targetCal) {
 //        Calendar calNow = ;
-        long timeInMilis=targetCal.getTimeInMillis()-Calendar.getInstance().getTimeInMillis();
+        long timeInMilis = targetCal.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
         long seconds = timeInMilis / 1000;
         long minutes = seconds / 60;
         long hours = minutes / 60;
-        String time =  hours % 24 + " hours," + minutes % 60 + " minutes," + seconds % 60+" seconds";
+        String time = hours % 24 + " hours," + minutes % 60 + " minutes," + seconds % 60 + " seconds";
 
 
-        Toast.makeText(getApplicationContext(),"Alarm set to "+(time)+" from now",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Alarm set to " + (time) + " from now", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
         intent.putExtra(Constants.EXTRA_DEVICE, device);
-        intent.putExtra(Constants.STATE_DEVICE,"abcd");
+        intent.putExtra(Constants.STATE_DEVICE, "abcd");
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getBaseContext(), RQS_1, intent, 0);
@@ -479,7 +480,7 @@ public class BluetoothActivity extends AppCompatActivity {
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
 
-        Log.d("Alarm","Onstart");
+        Log.d("Alarm", "Onstart");
         bluetoothService.connect();
         Log.d(Constants.TAG, "Connecting");
         PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
@@ -490,14 +491,13 @@ public class BluetoothActivity extends AppCompatActivity {
 //        lock.disableKeyguard();
     }
 
-    public void stopActivity(){
+    public void stopActivity() {
 //        mWakeLock.release();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             bluetoothService.stop();
 
             finishAndRemoveTask();
-        }
-        else {
+        } else {
             bluetoothService.stop();
             finish();
         }
@@ -536,6 +536,18 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     private void sendMessage(String message) {
+        if (message.length() > 1) {
+            /////string is of 8 characters
+            buttons_state = message;
+        } else {
+            //single character string
+            if (Character.isUpperCase(message.charAt(0))) {
+                buttons_state = buttons_state.replace(message.toLowerCase(), message.toUpperCase());
+
+            } else {
+                buttons_state = buttons_state.replace(message.toUpperCase(), message.toLowerCase());
+            }
+        }
         // Check that we're actually connected before trying anything
         if (bluetoothService.getState() != Constants.STATE_CONNECTED) {
             Snackbar.make(coordinatorLayout, "You are not connected", Snackbar.LENGTH_LONG)
@@ -554,8 +566,9 @@ public class BluetoothActivity extends AppCompatActivity {
 //                        }
 //                    }).show();
 
-            byte[] send = message.getBytes();
-            bluetoothService.write(send);
+//            byte[] send = message.getBytes();
+//            bluetoothService.write(send);
+
         }
     }
 
@@ -580,9 +593,9 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.reconnectButton.setVisible(false);
                             activity.toolbalProgressBar.setVisibility(View.GONE);
 //                            Toast.makeText(activity.getApplicationContext(),State,Toast.LENGTH_LONG).show();
-                            if(!activity.State.equals("null")) {
+                            if (!activity.State.equals("null")) {
                                 activity.sendMessage("a");
-                                activity.State="null";
+                                activity.State = "null";
                                 try {
                                     Thread.sleep(3000);
                                 } catch (InterruptedException e) {
@@ -606,9 +619,10 @@ public class BluetoothActivity extends AppCompatActivity {
                                 activity.setStatus("Error");
                                 activity.reconnectButton.setVisible(true);
                                 activity.toolbalProgressBar.setVisibility(View.GONE);
-                            }catch (Exception e){}
+                            } catch (Exception e) {
+                            }
 
-                            if(!activity.State.equals("null")) {
+                            if (!activity.State.equals("null")) {
 
                                 activity.reconnect();
                             }
@@ -642,7 +656,9 @@ public class BluetoothActivity extends AppCompatActivity {
                                         activity.reconnect();
                                     }
                                 }).show();
-                    }catch (Exception e){e.printStackTrace();}
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     break;
             }
@@ -750,13 +766,13 @@ public class BluetoothActivity extends AppCompatActivity {
         try {
             reconnectButton.setVisible(false);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
             bluetoothService.stop();
             bluetoothService.connect();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
