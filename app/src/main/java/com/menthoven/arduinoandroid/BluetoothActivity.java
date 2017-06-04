@@ -38,6 +38,7 @@ import com.menthoven.arduinoandroid.utils.Constant;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -87,8 +88,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     PowerManager.WakeLock mWakeLock;
     public String buttons_state = "abcdefgh";
-
-
+    public HashMap<String,Drawable> buttons_on,buttons_off;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +134,17 @@ public class BluetoothActivity extends AppCompatActivity {
         plug_off = ContextCompat.getDrawable(getApplicationContext(), R.drawable.plug_off);
         plug_on.setBounds(0, 0, 60, 60);
         plug_off.setBounds(0, 0, 60, 60);
+
+        buttons_off=new HashMap<String, Drawable>();
+        buttons_on=new HashMap<String, Drawable>();
+        populateHashMap( Constant.BUTTON_1);
+        populateHashMap( Constant.BUTTON_2);
+        populateHashMap( Constant.BUTTON_3);
+        populateHashMap( Constant.BUTTON_4);
+        populateHashMap( Constant.BUTTON_5);
+        populateHashMap( Constant.BUTTON_6);
+        populateHashMap( Constant.BUTTON_7);
+        populateHashMap( Constant.BUTTON_8);
 
         setLongClickListener(button1, Constant.BUTTON_1);
         setLongClickListener(button2, Constant.BUTTON_2);
@@ -305,51 +316,37 @@ public class BluetoothActivity extends AppCompatActivity {
 
     }
 
-    public void buttonOn(FButton button, String buttonKey) {
-        if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 3) {
-            button.setText("ON");
-            button.setCompoundDrawables(plug_on, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorOn));
-
-        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 2) {
-            button.setText("ON");
-            button.setCompoundDrawables(fan_on, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorOn));
-
-        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 1) {
-            button.setText("ON");
-            button.setCompoundDrawables(bulb_on, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorOn));
-
-        } else {
-            button.setText("ON");
-            button.setCompoundDrawables(null, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorOn));
+    private void populateHashMap(String buttonKey) {
+        String key=device.getName()+"_"+buttonKey;
+        int button_icon=AppUtils.getButtonIcon(getApplicationContext(),key);
+        if(button_icon==3){
+            buttons_off.put(key,plug_off);
+            buttons_on.put(key,plug_on);
+        }else if(button_icon==2){
+            buttons_off.put(key,fan_off);
+            buttons_on.put(key,fan_on);
+        }else if(button_icon==1){
+            buttons_off.put(key,bulb_off);
+            buttons_on.put(key,bulb_on);
+        }else {
+            buttons_off.put(key,null);
+            buttons_on.put(key,null);
         }
 
     }
 
+    public void buttonOn(FButton button, String buttonKey) {
+        String key=device.getName()+"_"+buttonKey;
+        button.setText("ON");
+        button.setCompoundDrawables(buttons_on.get(key), null, null, null);
+        button.setButtonColor(getResources().getColor(R.color.colorOn));
+    }
+
     public void buttonOff(FButton button, String buttonKey) {
-        if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 3) {
-            button.setText("OFF");
-            button.setCompoundDrawables(plug_off, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorItem));
-
-        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 2) {
-            button.setText("OFF");
-            button.setCompoundDrawables(fan_off, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorItem));
-
-        } else if (AppUtils.getButtonIcon(getApplicationContext(), buttonKey) == 1) {
-            button.setText("OFF");
-            button.setCompoundDrawables(bulb_off, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorItem));
-
-        } else {
-            button.setText("OFF");
-            button.setCompoundDrawables(null, null, null, null);
-            button.setButtonColor(getResources().getColor(R.color.colorItem));
-        }
+        String key=device.getName()+"_"+buttonKey;
+        button.setText("OFF");
+        button.setCompoundDrawables(buttons_off.get(key), null, null, null);
+        button.setButtonColor(getResources().getColor(R.color.colorItem));
     }
 
     public void setLongClickListener(FButton button, final String key) {
@@ -380,29 +377,33 @@ public class BluetoothActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String strName = arrayAdapter.getItem(which);
                         if (strName.equals("Light")) {
-                            AppUtils.saveButtonIcon(getApplicationContext(), key, 1);
+                            AppUtils.saveButtonIcon(getApplicationContext(), device.getName()+"_"+key, 1);
                             if (btn.getText().toString().equalsIgnoreCase("ON")) {
                                 btn.setCompoundDrawables(bulb_on, null, null, null);
                             } else {
                                 btn.setCompoundDrawables(bulb_off, null, null, null);
                             }
+                            populateHashMap(key);
                         } else if (strName.equals("Fan")) {
-                            AppUtils.saveButtonIcon(getApplicationContext(), key, 2);
+                            AppUtils.saveButtonIcon(getApplicationContext(), device.getName()+"_"+key, 2);
                             if (btn.getText().toString().equalsIgnoreCase("ON")) {
                                 btn.setCompoundDrawables(fan_on, null, null, null);
                             } else {
                                 btn.setCompoundDrawables(fan_off, null, null, null);
                             }
+                            populateHashMap(key);
                         } else if (strName.equals("Socket")) {
-                            AppUtils.saveButtonIcon(getApplicationContext(), key, 3);
+                            AppUtils.saveButtonIcon(getApplicationContext(), device.getName()+"_"+key, 3);
                             if (btn.getText().toString().equalsIgnoreCase("ON")) {
                                 btn.setCompoundDrawables(plug_on, null, null, null);
                             } else {
                                 btn.setCompoundDrawables(plug_off, null, null, null);
                             }
+                            populateHashMap(key);
                         } else {
-                            AppUtils.saveButtonIcon(getApplicationContext(), key, 0);
+                            AppUtils.saveButtonIcon(getApplicationContext(), device.getName()+"_"+key, 0);
                             btn.setCompoundDrawables(null, null, null, null);
+                            populateHashMap(key);
                         }
 
                     }
