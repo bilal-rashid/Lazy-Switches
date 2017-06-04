@@ -464,7 +464,7 @@ public class BluetoothActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
         intent.putExtra(Constants.EXTRA_DEVICE, device);
         intent.putExtra(Constants.STATE_DEVICE, buttons_state);
-        Log.d("mmeessaaggee","buttons alarm state  "+buttons_state);
+//        Log.d("mmeessaaggee","buttons alarm state  "+buttons_state);
         AppUtils.saveAlarmState(getApplicationContext(), Constant.BUTTON_ALARM_STATE, buttons_state);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -541,7 +541,7 @@ public class BluetoothActivity extends AppCompatActivity {
         if (message.length() > 1) {
             /////string is of 8 characters
             buttons_state = message;
-            Log.d("mmeessaaggee","Alarm  "+message);
+//            Log.d("mmeessaaggee","Alarm  "+message);
         } else {
             //single character string
             if (Character.isUpperCase(message.charAt(0))) {
