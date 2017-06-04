@@ -27,7 +27,9 @@ public interface Constants {
 
     // Key names received from the BluetoothChatService Handler
     String EXTRA_DEVICE  = "EXTRA_DEVICE";
+    String STATE_DEVICE  = "STATE_DEVICE";
     String SNACKBAR = "toast";
+
 
 
 }

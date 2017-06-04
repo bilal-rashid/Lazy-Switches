@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/lazylogo"
@@ -30,6 +32,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.menthoven.arduinoandroid.MainActivity" />
         </activity>
+        <receiver android:name=".Recievers.AlarmReceiver" android:process=":remote" />
     </application>
 
 </manifest>

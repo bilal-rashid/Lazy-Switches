@@ -24,9 +24,7 @@
 
     <item
         android:id="@+id/checkable_show_messages"
-        android:checkable="true"
-        android:checked="true"
-        android:title="Show messages"/>
+        android:title="Set Alarm"/>
 
     <item
         android:id="@+id/checkable_show_time"

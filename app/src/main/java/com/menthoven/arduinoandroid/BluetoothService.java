@@ -160,6 +160,7 @@ public class BluetoothService {
             } catch (IOException connectException) {
                 // Unable to connect; close the socket and get out
                 Log.e(Constants.TAG, "Unable to connect", connectException);
+
                 try {
                     mmSocket.close();
                 } catch (IOException closeException) {

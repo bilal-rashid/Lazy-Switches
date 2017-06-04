@@ -1,5 +1,8 @@
 package com.menthoven.arduinoandroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -8,9 +11,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -22,14 +27,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.menthoven.arduinoandroid.Recievers.AlarmReceiver;
 import com.menthoven.arduinoandroid.utils.AppUtils;
 import com.menthoven.arduinoandroid.utils.Constant;
 
 import java.lang.ref.WeakReference;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,6 +80,15 @@ public class BluetoothActivity extends AppCompatActivity {
     private boolean autoScrollIsChecked = true;
     public static boolean showTimeIsChecked = true;
     Drawable bulb_on, bulb_off, fan_on, fan_off, plug_on, plug_off;
+    public static String State;
+    TimePickerDialog timePickerDialog;
+    final static int RQS_1 = 1;
+
+
+    PowerManager.WakeLock mWakeLock;
+    public String buttons_state = "abcdefgh";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,8 +106,6 @@ public class BluetoothActivity extends AppCompatActivity {
                 });
 
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         setSupportActionBar(toolbar);
 
         myHandler handler = new myHandler(BluetoothActivity.this);
@@ -100,6 +115,9 @@ public class BluetoothActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         device = getIntent().getExtras().getParcelable(Constants.EXTRA_DEVICE);
+        State = getIntent().getStringExtra(Constants.STATE_DEVICE);
+//        Log.d("mmeessaaggee","Activity recieved state   "+State);
+//        Log.d("mmeessaaggee","Shared pref   "+AppUtils.getAlarmState(getApplicationContext(),Constant.BUTTON_ALARM_STATE));
 
         bluetoothService = new BluetoothService(handler, device);
 
@@ -126,26 +144,26 @@ public class BluetoothActivity extends AppCompatActivity {
         setLongClickListener(button7, Constant.BUTTON_7);
         setLongClickListener(button8, Constant.BUTTON_8);
 
-        buttonOff(button1,Constant.BUTTON_1);
-        buttonOff(button2,Constant.BUTTON_2);
-        buttonOff(button3,Constant.BUTTON_3);
-        buttonOff(button4,Constant.BUTTON_4);
-        buttonOff(button5,Constant.BUTTON_5);
-        buttonOff(button6,Constant.BUTTON_6);
-        buttonOff(button7,Constant.BUTTON_7);
-        buttonOff(button8,Constant.BUTTON_8);
+        buttonOff(button1, Constant.BUTTON_1);
+        buttonOff(button2, Constant.BUTTON_2);
+        buttonOff(button3, Constant.BUTTON_3);
+        buttonOff(button4, Constant.BUTTON_4);
+        buttonOff(button5, Constant.BUTTON_5);
+        buttonOff(button6, Constant.BUTTON_6);
+        buttonOff(button7, Constant.BUTTON_7);
+        buttonOff(button8, Constant.BUTTON_8);
 
         setTitle(device.getName());
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (button1.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button1, Constant.BUTTON_1);
                     sendMessage("A");
+                    buttonOn(button1, Constant.BUTTON_1);
 
                 } else {
-                    buttonOff(button1, Constant.BUTTON_1);
                     sendMessage("a");
+                    buttonOff(button1, Constant.BUTTON_1);
 
                 }
 
@@ -156,12 +174,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button2.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button2, Constant.BUTTON_2);
                     sendMessage("B");
+                    buttonOn(button2, Constant.BUTTON_2);
 
                 } else {
-                    buttonOff(button2, Constant.BUTTON_2);
                     sendMessage("b");
+                    buttonOff(button2, Constant.BUTTON_2);
 
                 }
             }
@@ -171,12 +189,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button3.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button3, Constant.BUTTON_3);
                     sendMessage("C");
+                    buttonOn(button3, Constant.BUTTON_3);
 
                 } else {
-                    buttonOff(button3, Constant.BUTTON_3);
                     sendMessage("c");
+                    buttonOff(button3, Constant.BUTTON_3);
 
                 }
             }
@@ -186,12 +204,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button4.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button4, Constant.BUTTON_4);
                     sendMessage("D");
+                    buttonOn(button4, Constant.BUTTON_4);
 
                 } else {
-                    buttonOff(button4, Constant.BUTTON_4);
                     sendMessage("d");
+                    buttonOff(button4, Constant.BUTTON_4);
 
                 }
             }
@@ -201,12 +219,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button5.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button5, Constant.BUTTON_5);
                     sendMessage("E");
+                    buttonOn(button5, Constant.BUTTON_5);
 
                 } else {
-                    buttonOff(button5, Constant.BUTTON_5);
                     sendMessage("e");
+                    buttonOff(button5, Constant.BUTTON_5);
 
                 }
             }
@@ -216,12 +234,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button6.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button6, Constant.BUTTON_6);
                     sendMessage("F");
+                    buttonOn(button6, Constant.BUTTON_6);
 
                 } else {
-                    buttonOff(button6, Constant.BUTTON_6);
                     sendMessage("f");
+                    buttonOff(button6, Constant.BUTTON_6);
 
                 }
             }
@@ -231,12 +249,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button7.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button7, Constant.BUTTON_7);
                     sendMessage("G");
+                    buttonOn(button7, Constant.BUTTON_7);
 
                 } else {
-                    buttonOff(button7, Constant.BUTTON_7);
                     sendMessage("g");
+                    buttonOff(button7, Constant.BUTTON_7);
 
                 }
             }
@@ -246,12 +264,12 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button8.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button8, Constant.BUTTON_8);
                     sendMessage("H");
+                    buttonOn(button8, Constant.BUTTON_8);
 
                 } else {
-                    buttonOff(button8, Constant.BUTTON_8);
                     sendMessage("h");
+                    buttonOff(button8, Constant.BUTTON_8);
 
                 }
             }
@@ -397,6 +415,65 @@ public class BluetoothActivity extends AppCompatActivity {
 
     }
 
+    private void openTimePickerDialog(boolean is24r) {
+        Calendar calendar = Calendar.getInstance();
+
+        timePickerDialog = new TimePickerDialog(BluetoothActivity.this,
+                onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), is24r);
+        timePickerDialog.setTitle("Set Alarm Time");
+
+        timePickerDialog.show();
+
+    }
+
+    TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            Calendar calNow = Calendar.getInstance();
+            Calendar calSet = (Calendar) calNow.clone();
+
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+
+            if (calSet.compareTo(calNow) <= 0) {
+                // Today Set time passed, count to tomorrow
+                calSet.add(Calendar.DATE, 1);
+            }
+
+            setAlarm(calSet);
+        }
+    };
+
+    private void setAlarm(Calendar targetCal) {
+//        Calendar calNow = ;
+        long timeInMilis = targetCal.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        long seconds = timeInMilis / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        String time = hours % 24 + " hours," + minutes % 60 + " minutes," + seconds % 60 + " seconds";
+
+
+        Toast.makeText(getApplicationContext(), "Alarm set to " + (time) + " from now", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        intent.putExtra(Constants.EXTRA_DEVICE, device);
+        intent.putExtra(Constants.STATE_DEVICE, buttons_state);
+//        Log.d("mmeessaaggee","buttons alarm state  "+buttons_state);
+        AppUtils.saveAlarmState(getApplicationContext(), Constant.BUTTON_ALARM_STATE, buttons_state);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getBaseContext(), RQS_1, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
+                pendingIntent);
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -404,8 +481,27 @@ public class BluetoothActivity extends AppCompatActivity {
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
 
+        Log.d("Alarm", "Onstart");
         bluetoothService.connect();
         Log.d(Constants.TAG, "Connecting");
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock((PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
+        mWakeLock.acquire();
+//        KeyguardManager manager = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+//        KeyguardManager.KeyguardLock lock = manager.newKeyguardLock("abc");
+//        lock.disableKeyguard();
+    }
+
+    public void stopActivity() {
+//        mWakeLock.release();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            bluetoothService.stop();
+
+            finishAndRemoveTask();
+        } else {
+            bluetoothService.stop();
+            finish();
+        }
     }
 
     @Override
@@ -441,6 +537,19 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     private void sendMessage(String message) {
+        if (message.length() > 1) {
+            /////string is of 8 characters
+            buttons_state = message;
+//            Log.d("mmeessaaggee","Alarm  "+message);
+        } else {
+            //single character string
+            if (Character.isUpperCase(message.charAt(0))) {
+                buttons_state = buttons_state.replace(message.toLowerCase(), message.toUpperCase());
+
+            } else {
+                buttons_state = buttons_state.replace(message.toUpperCase(), message.toLowerCase());
+            }
+        }
         // Check that we're actually connected before trying anything
         if (bluetoothService.getState() != Constants.STATE_CONNECTED) {
             Snackbar.make(coordinatorLayout, "You are not connected", Snackbar.LENGTH_LONG)
@@ -459,8 +568,10 @@ public class BluetoothActivity extends AppCompatActivity {
 //                        }
 //                    }).show();
 
-//            byte[] send = message.getBytes();
-//            bluetoothService.write(send);
+
+            byte[] send = message.getBytes();
+            bluetoothService.write(send);
+
         }
     }
 
@@ -484,6 +595,21 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.setStatus("Connected");
                             activity.reconnectButton.setVisible(false);
                             activity.toolbalProgressBar.setVisibility(View.GONE);
+//                            Toast.makeText(activity.getApplicationContext(),State,Toast.LENGTH_LONG).show();
+                            if (!activity.State.equals("null")) {
+                                activity.sendMessage(AppUtils.getAlarmState(activity.getApplicationContext(),
+                                        Constant.BUTTON_ALARM_STATE));
+                                activity.State = "null";
+                                AppUtils.saveAlarmState(activity.getApplicationContext(), Constant.BUTTON_ALARM_STATE,
+                                        "null");
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                activity.stopActivity();
+                            }
+
                             break;
                         case Constants.STATE_CONNECTING:
                             activity.setStatus("Connecting");
@@ -494,9 +620,18 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.toolbalProgressBar.setVisibility(View.GONE);
                             break;
                         case Constants.STATE_ERROR:
-                            activity.setStatus("Error");
-                            activity.reconnectButton.setVisible(true);
-                            activity.toolbalProgressBar.setVisibility(View.GONE);
+                            try {
+
+                                activity.setStatus("Error");
+                                activity.reconnectButton.setVisible(true);
+                                activity.toolbalProgressBar.setVisibility(View.GONE);
+                            } catch (Exception e) {
+                            }
+
+                            if (!activity.State.equals("null")) {
+
+                                activity.reconnect();
+                            }
                             break;
                     }
                     break;
@@ -519,13 +654,17 @@ public class BluetoothActivity extends AppCompatActivity {
                     break;
 
                 case Constants.MESSAGE_SNACKBAR:
-                    Snackbar.make(activity.coordinatorLayout, msg.getData().getString(Constants.SNACKBAR), Snackbar.LENGTH_LONG)
-                            .setAction("Connect", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    activity.reconnect();
-                                }
-                            }).show();
+                    try {
+                        Snackbar.make(activity.coordinatorLayout, msg.getData().getString(Constants.SNACKBAR), Snackbar.LENGTH_LONG)
+                                .setAction("Connect", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        activity.reconnect();
+                                    }
+                                }).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     break;
             }
@@ -563,7 +702,7 @@ public class BluetoothActivity extends AppCompatActivity {
         reconnectButton = menu.findItem(R.id.action_reconnect);
         menu.findItem(R.id.action_clear).setVisible(false);
         menu.findItem(R.id.checkable_auto_scroll).setVisible(false);
-        menu.findItem(R.id.checkable_show_messages).setVisible(false);
+        menu.findItem(R.id.checkable_show_messages).setVisible(true);
         menu.findItem(R.id.checkable_show_time).setVisible(false);
         return true;
     }
@@ -588,8 +727,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 item.setChecked(autoScrollIsChecked);
                 return true;
             case R.id.checkable_show_messages:
-                showMessagesIsChecked = !item.isChecked();
-                item.setChecked(showMessagesIsChecked);
+                openTimePickerDialog(false);
                 return true;
             case R.id.checkable_show_time:
                 showTimeIsChecked = !item.isChecked();
@@ -631,9 +769,19 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     private void reconnect() {
-        reconnectButton.setVisible(false);
-        bluetoothService.stop();
-        bluetoothService.connect();
+        try {
+            reconnectButton.setVisible(false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bluetoothService.stop();
+            bluetoothService.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
