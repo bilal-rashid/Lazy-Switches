@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
 
                         intent.putExtra(Constants.EXTRA_DEVICE, device);
+                        intent.putExtra(Constants.STATE_DEVICE,"null");
 
                         startActivity(intent);
                     }

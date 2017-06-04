@@ -13,4 +13,11 @@ public class AppUtils {
     public static int getButtonIcon(Context context,String iconKey){
         return PrefUtils.getInt(context,iconKey,0);
     }
+
+    public static void saveAlarmState(Context context,String key,String value){
+        PrefUtils.persistString(context,key,value);
+    }
+    public static String getAlarmState(Context context,String key){
+        return PrefUtils.getString(context,key);
+    }
 }
