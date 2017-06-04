@@ -1,7 +1,6 @@
 package com.menthoven.arduinoandroid;
 
 import android.app.AlarmManager;
-import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -28,7 +27,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TimePicker;
@@ -83,7 +81,6 @@ public class BluetoothActivity extends AppCompatActivity {
     public static boolean showTimeIsChecked = true;
     Drawable bulb_on, bulb_off, fan_on, fan_off, plug_on, plug_off;
     public static String State;
-    TimePicker myTimePicker;
     TimePickerDialog timePickerDialog;
     final static int RQS_1 = 1;
 
@@ -119,6 +116,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
         device = getIntent().getExtras().getParcelable(Constants.EXTRA_DEVICE);
         State = getIntent().getStringExtra(Constants.STATE_DEVICE);
+//        Log.d("mmeessaaggee","Activity recieved state   "+State);
+//        Log.d("mmeessaaggee","Shared pref   "+AppUtils.getAlarmState(getApplicationContext(),Constant.BUTTON_ALARM_STATE));
 
         bluetoothService = new BluetoothService(handler, device);
 
@@ -463,7 +462,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
         intent.putExtra(Constants.EXTRA_DEVICE, device);
-        intent.putExtra(Constants.STATE_DEVICE, "abcd");
+        intent.putExtra(Constants.STATE_DEVICE, buttons_state);
+//        Log.d("mmeessaaggee","buttons alarm state  "+buttons_state);
+        AppUtils.saveAlarmState(getApplicationContext(), Constant.BUTTON_ALARM_STATE, buttons_state);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getBaseContext(), RQS_1, intent, 0);
@@ -539,6 +540,7 @@ public class BluetoothActivity extends AppCompatActivity {
         if (message.length() > 1) {
             /////string is of 8 characters
             buttons_state = message;
+//            Log.d("mmeessaaggee","Alarm  "+message);
         } else {
             //single character string
             if (Character.isUpperCase(message.charAt(0))) {
@@ -565,6 +567,7 @@ public class BluetoothActivity extends AppCompatActivity {
 //                            reconnect();
 //                        }
 //                    }).show();
+
 
             byte[] send = message.getBytes();
             bluetoothService.write(send);
@@ -594,8 +597,11 @@ public class BluetoothActivity extends AppCompatActivity {
                             activity.toolbalProgressBar.setVisibility(View.GONE);
 //                            Toast.makeText(activity.getApplicationContext(),State,Toast.LENGTH_LONG).show();
                             if (!activity.State.equals("null")) {
-                                activity.sendMessage("a");
+                                activity.sendMessage(AppUtils.getAlarmState(activity.getApplicationContext(),
+                                        Constant.BUTTON_ALARM_STATE));
                                 activity.State = "null";
+                                AppUtils.saveAlarmState(activity.getApplicationContext(), Constant.BUTTON_ALARM_STATE,
+                                        "null");
                                 try {
                                     Thread.sleep(3000);
                                 } catch (InterruptedException e) {

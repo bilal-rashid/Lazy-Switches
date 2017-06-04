@@ -20,7 +20,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // TODO Auto-generated method stub
         Log.d("Alarm","Recieved");
 
-        Toast.makeText(k1, "Alarm received!", Toast.LENGTH_LONG).show();
+//        Toast.makeText(k1, "Alarm received!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(k1, BluetoothActivity.class);
 
         intent.putExtra(Constants.EXTRA_DEVICE, k2.getExtras().getParcelable(Constants.EXTRA_DEVICE));

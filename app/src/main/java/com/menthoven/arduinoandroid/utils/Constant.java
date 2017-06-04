@@ -13,4 +13,5 @@ public class Constant {
     public static final String BUTTON_6="button_6";
     public static final String BUTTON_7="button_7";
     public static final String BUTTON_8="button_8";
+    public static final String BUTTON_ALARM_STATE="button_alarm_state";
 }
