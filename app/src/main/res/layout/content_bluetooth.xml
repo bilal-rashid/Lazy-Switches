@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -39,68 +38,53 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="OFF"
+                    android:text="OFF\n4 Sec"
                     android:textColor="@android:color/black"
                     android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
                     fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
+                    fbutton:shadowHeight="3dp" />
 
-
-                    />
                 <android.support.v4.widget.Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.05"/>
+                    android:layout_weight="0.05" />
 
 
                 <info.hoang8f.widget.FButton
                     android:id="@+id/button2"
                     android:layout_width="0dp"
-
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="OFF"
+                    android:text="OFF\n5 Sec"
                     android:textColor="@android:color/black"
                     android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
                     fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
+                    fbutton:shadowHeight="3dp" />
 
-
-                    />
                 <android.support.v4.widget.Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.05"/>
+                    android:layout_weight="0.05" />
+
                 <info.hoang8f.widget.FButton
                     android:id="@+id/button3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="OFF"
+                    android:text="OFF\n6 Sec"
                     android:textColor="@android:color/black"
                     android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
                     fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
-
-                <!--<Button-->
-                <!--android:layout_width="0dp"-->
-                <!--android:text="OFF"-->
-                <!--android:textSize="25sp"-->
-                <!--style="@style/Widget.AppCompat.Button.Colored"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1" />-->
+                    fbutton:shadowHeight="3dp"/>
 
             </LinearLayout>
 
@@ -118,24 +102,24 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <info.hoang8f.widget.FButton
-                    android:id="@+id/button4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="OFF"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
+                    <info.hoang8f.widget.FButton
+                        android:id="@+id/button4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="OFF\n7 Sec"
+                        android:textColor="@android:color/black"
+                        android:textSize="25sp"
+                        app:cornerRadius="15dp"
+                        fbutton:buttonColor="@color/colorItem"
+                        fbutton:shadowColor="@color/shadow"
+                        fbutton:shadowEnabled="true"
+                        fbutton:shadowHeight="3dp" />
 
-                    app:cornerRadius="15dp"
-                    fbutton:buttonColor="@color/colorItem"
-                    fbutton:shadowColor="@color/shadow"
-                    fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp" />
                 <android.support.v4.widget.Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.05"/>
+                    android:layout_weight="0.05" />
 
 
                 <info.hoang8f.widget.FButton
@@ -143,44 +127,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="OFF"
+                    android:text="OFF\n8 Sec"
                     android:textColor="@android:color/black"
                     android:textSize="25sp"
                     app:cornerRadius="15dp"
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
                     fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05"/>
-                <info.hoang8f.widget.FButton
-                    android:id="@+id/button6"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="OFF"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
-                    app:cornerRadius="15dp"
-                    fbutton:buttonColor="@color/colorItem"
-                    fbutton:shadowColor="@color/shadow"
-                    fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
-                <!--<Button-->
-                <!--android:layout_width="0dp"-->
-                <!--android:text="OFF"-->
-                <!--android:textSize="25sp"-->
-                <!--style="@style/Widget.AppCompat.Button.Colored"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1" />-->
+                    fbutton:shadowHeight="3dp" />
 
             </LinearLayout>
 
@@ -210,95 +164,7 @@
                     fbutton:buttonColor="@color/colorItem"
                     fbutton:shadowColor="@color/shadow"
                     fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05"/>
-
-
-                <info.hoang8f.widget.FButton
-                    android:id="@+id/button8"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="OFF"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
-                    app:cornerRadius="15dp"
-                    fbutton:buttonColor="@color/colorItem"
-                    fbutton:shadowColor="@color/shadow"
-                    fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
-
-                <!--<Button-->
-                <!--android:layout_width="0dp"-->
-                <!--android:text="OFF"-->
-                <!--android:textSize="25sp"-->
-                <!--style="@style/Widget.AppCompat.Button.Colored"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1" />-->
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <info.hoang8f.widget.FButton
-                    android:id="@+id/button9"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="All On"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
-                    app:cornerRadius="15dp"
-                    fbutton:buttonColor="@color/colorOn"
-                    fbutton:shadowColor="@color/shadow"
-                    fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05"/>
-
-
-                <info.hoang8f.widget.FButton
-                    android:id="@+id/button10"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="All Off"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
-                    app:cornerRadius="15dp"
-                    fbutton:buttonColor="@color/colorOn"
-                    fbutton:shadowColor="@color/shadow"
-                    fbutton:shadowEnabled="true"
-                    fbutton:shadowHeight="3dp"
-
-
-                    />
+                    fbutton:shadowHeight="3dp" />
 
             </LinearLayout>
 
