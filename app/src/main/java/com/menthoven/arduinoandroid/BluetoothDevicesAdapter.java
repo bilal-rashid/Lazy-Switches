@@ -19,8 +19,10 @@ public class BluetoothDevicesAdapter extends ArrayAdapter<BluetoothDevice> {
     // View lookup cache
     static class ViewHolder {
 
-        @Bind(R.id.device_name) TextView name;
-        @Bind(R.id.device_address) TextView address;
+        @Bind(R.id.device_name)
+        TextView name;
+        @Bind(R.id.device_address)
+        TextView address;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

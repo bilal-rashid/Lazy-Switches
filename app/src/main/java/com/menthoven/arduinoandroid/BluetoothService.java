@@ -178,7 +178,9 @@ public class BluetoothService {
             connected(mmSocket, mmDevice);
         }
 
-        /** Will cancel an in-progress connection, and close the socket */
+        /**
+         * Will cancel an in-progress connection, and close the socket
+         */
         public void cancel() {
             try {
                 mmSocket.close();
@@ -253,12 +255,16 @@ public class BluetoothService {
         }
 
         /* Call this from the main activity to shutdown the connection */
-        /** Will cancel an in-progress connection, and close the socket */
+
+        /**
+         * Will cancel an in-progress connection, and close the socket
+         */
         public void cancel() {
             try {
                 mmSocket.close();
             } catch (IOException e) {
-                Log.e(Constants.TAG, "close() of connect socket failed", e);}
+                Log.e(Constants.TAG, "close() of connect socket failed", e);
+            }
         }
     }
 

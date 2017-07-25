@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.os.PowerManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -73,6 +75,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     PowerManager.WakeLock mWakeLock;
     public String buttons_state = "abcde";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +117,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button1.getText().toString().contains("OFF")) {
-                    buttons_state="A";
+                    buttons_state = "A";
                     buttonOn(button1);
                     buttonOff(button2);
                     buttonOff(button3);
@@ -130,7 +133,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button2.getText().toString().contains("OFF")) {
-                    buttons_state="B";
+                    buttons_state = "B";
                     buttonOn(button2);
                     buttonOff(button1);
                     buttonOff(button3);
@@ -145,7 +148,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button3.getText().toString().contains("OFF")) {
-                    buttons_state="C";
+                    buttons_state = "C";
                     buttonOn(button3);
                     buttonOff(button2);
                     buttonOff(button1);
@@ -160,7 +163,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button4.getText().toString().contains("OFF")) {
-                    buttons_state="D";
+                    buttons_state = "D";
                     buttonOn(button4);
                     buttonOff(button2);
                     buttonOff(button3);
@@ -174,7 +177,7 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (button5.getText().toString().contains("OFF")) {
-                    buttons_state="E";
+                    buttons_state = "E";
                     buttonOn(button5);
                     buttonOff(button2);
                     buttonOff(button3);
@@ -202,12 +205,18 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     public void buttonOn(FButton button) {
-        button.setText(button.getText().toString().replace("OFF","ON"));
+        button.setText(button.getText().toString().replace("OFF", "ON"));
+        if (button.getId() != R.id.button7) {
+            Drawable clock = ContextCompat.getDrawable(getApplicationContext(), R.drawable.clock);
+            clock.setBounds(0, 10, 60, 60);
+            button.setCompoundDrawables(null, clock, null, null);
+        }
         button.setButtonColor(getResources().getColor(R.color.colorOn));
     }
 
     public void buttonOff(FButton button) {
-        button.setText(button.getText().toString().replace("ON","OFF"));
+        button.setText(button.getText().toString().replace("ON", "OFF"));
+        button.setCompoundDrawables(null, null, null, null);
         button.setButtonColor(getResources().getColor(R.color.colorItem));
     }
 

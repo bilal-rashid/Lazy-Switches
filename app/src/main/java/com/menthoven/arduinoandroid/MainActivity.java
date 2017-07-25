@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
 
 
-    @OnClick(R.id.search_button) void search() {
+    @OnClick(R.id.search_button)
+    void search() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void tryagain(){
+    public void tryagain() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(
@@ -96,16 +97,18 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(enableBtIntent, Constants.REQUEST_ENABLE_BT);
     }
 
-    @OnItemClick(R.id.devices_list_view) void onItemClick(int position) {
+    @OnItemClick(R.id.devices_list_view)
+    void onItemClick(int position) {
         setStatus("Asking to connect");
         final BluetoothDevice device = bluetoothDevicesAdapter.getItem(position);
 
-        AlertDialog alertDialog=new AlertDialog.Builder(MainActivity.this)
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
                 .setCancelable(false)
                 .setTitle("Connect")
                 .setMessage("Do you want to connect to: " + device.getName() + " - " + device.getAddress())
                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         Log.d(Constants.TAG, "Opening new Activity");
                         bluetoothAdapter.cancelDiscovery();
                         toolbarProgressCircle.setVisibility(View.INVISIBLE);
@@ -113,18 +116,19 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
 
                         intent.putExtra(Constants.EXTRA_DEVICE, device);
-                        intent.putExtra(Constants.STATE_DEVICE,"null");
+                        intent.putExtra(Constants.STATE_DEVICE, "null");
 
                         startActivity(intent);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         setStatus("Cancelled connection");
                         Log.d(Constants.TAG, "Cancelled ");
                     }
                 }).show();
-     //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryDark2);
+        //   alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryDark2);
 //        alertDialog.getWindow().getDecorView().getBackground()
 //                .setColorFilter(new LightingColorFilter(0xFF000000,
 //                getResources().getColor(R.color.colorPrimaryDark1)));
@@ -155,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("No Bluetooth")
                     .setMessage("Your device has no bluetooth")
                     .setPositiveButton("Close app", new DialogInterface.OnClickListener() {
-                        @Override public void onClick(DialogInterface dialog, int which) {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
                             Log.d(Constants.TAG, "App closed");
                             finish();
                         }
@@ -166,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
         //btn1.set
     }
 
-    @Override protected void onStart() {
+    @Override
+    protected void onStart() {
         super.onStart();
 
         Log.d(Constants.TAG, "Registering receiver");
@@ -177,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, filter);
     }
 
-    @Override protected void onStop() {
+    @Override
+    protected void onStop() {
         super.onStop();
         Log.d(Constants.TAG, "Receiver unregistered");
         unregisterReceiver(mReceiver);
@@ -188,7 +195,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle(status);
     }
 
-    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_ENABLE_BT) {
             if (resultCode == RESULT_OK) {
@@ -197,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
                 setStatus("Error");
                 Snackbar.make(coordinatorLayout, "Failed to enable bluetooth", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Try Again", new View.OnClickListener() {
-                            @Override public void onClick(View v) {
+                            @Override
+                            public void onClick(View v) {
                                 enableBluetooth();
                             }
                         }).show();
@@ -226,7 +235,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Snackbar.make(coordinatorLayout, "Permission Denied", Snackbar.LENGTH_INDEFINITE)
                             .setAction("Try Again", new View.OnClickListener() {
-                                @Override public void onClick(View v) {
+                                @Override
+                                public void onClick(View v) {
                                     tryagain();
                                 }
                             }).show();
@@ -248,7 +258,8 @@ public class MainActivity extends AppCompatActivity {
             setStatus("Error");
             Snackbar.make(coordinatorLayout, "Failed to start searching", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Try Again", new View.OnClickListener() {
-                        @Override public void onClick(View v) {
+                        @Override
+                        public void onClick(View v) {
                             startSearching();
                         }
                     }).show();
@@ -281,7 +292,8 @@ public class MainActivity extends AppCompatActivity {
                     case BluetoothAdapter.STATE_OFF:
                         Snackbar.make(coordinatorLayout, "Bluetooth turned off", Snackbar.LENGTH_INDEFINITE)
                                 .setAction("Turn on", new View.OnClickListener() {
-                                    @Override public void onClick(View v) {
+                                    @Override
+                                    public void onClick(View v) {
                                         enableBluetooth();
                                     }
                                 }).show();
