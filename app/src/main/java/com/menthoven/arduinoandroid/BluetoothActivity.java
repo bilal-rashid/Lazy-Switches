@@ -343,19 +343,6 @@ public class BluetoothActivity extends AppCompatActivity {
 
 
     private void sendMessage(String message) {
-        if (message.length() > 1) {
-            /////string is of 8 characters
-            buttons_state = message;
-//            Log.d("mmeessaaggee","Alarm  "+message);
-        } else {
-            //single character string
-            if (Character.isUpperCase(message.charAt(0))) {
-                buttons_state = buttons_state.replace(message.toLowerCase(), message.toUpperCase());
-
-            } else {
-                buttons_state = buttons_state.replace(message.toUpperCase(), message.toLowerCase());
-            }
-        }
         // Check that we're actually connected before trying anything
         if (bluetoothService.getState() != Constants.STATE_CONNECTED) {
             Snackbar.make(coordinatorLayout, "You are not connected", Snackbar.LENGTH_LONG)
