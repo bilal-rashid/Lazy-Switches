@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,9 +18,9 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
     // View lookup cache
     static class ViewHolder {
 
-        @Bind(R.id.time_text_view) TextView time;
-        @Bind(R.id.device_text_view) TextView device;
-        @Bind(R.id.message_text_view) TextView message;
+        @BindView(R.id.time_text_view) TextView time;
+        @BindView(R.id.device_text_view) TextView device;
+        @BindView(R.id.message_text_view) TextView message;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -28,7 +28,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
@@ -40,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevicesAdapter bluetoothDevicesAdapter;
 
     public static final int MY_LOCATION_PERMISSION_REQUEST_CODE = 1;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.devices_list_view)
+    @BindView(R.id.devices_list_view)
     ListView devicesListView;
-    @Bind(R.id.empty_list_item)
+    @BindView(R.id.empty_list_item)
     TextView emptyListTextView;
-    @Bind(R.id.toolbar_progress_bar)
+    @BindView(R.id.toolbar_progress_bar)
     ProgressBar toolbarProgressCircle;
-    @Bind(R.id.coordinator_layout_main)
+    @BindView(R.id.coordinator_layout_main)
     CoordinatorLayout coordinatorLayout;
 
 

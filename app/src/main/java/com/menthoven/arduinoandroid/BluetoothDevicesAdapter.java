@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -19,8 +20,8 @@ public class BluetoothDevicesAdapter extends ArrayAdapter<BluetoothDevice> {
     // View lookup cache
     static class ViewHolder {
 
-        @Bind(R.id.device_name) TextView name;
-        @Bind(R.id.device_address) TextView address;
+        @BindView(R.id.device_name) TextView name;
+        @BindView(R.id.device_address) TextView address;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

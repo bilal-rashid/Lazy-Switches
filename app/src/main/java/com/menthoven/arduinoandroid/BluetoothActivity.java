@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.menthoven.arduinoandroid.utils.AppUtils;
@@ -32,41 +33,41 @@ import com.menthoven.arduinoandroid.utils.Constant;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import info.hoang8f.widget.FButton;
+
 
 public class BluetoothActivity extends AppCompatActivity {
 
 
     BluetoothService bluetoothService;
     BluetoothDevice device;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_progress_bar)
+    @BindView(R.id.toolbar_progress_bar)
     ProgressBar toolbalProgressBar;
-    @Bind(R.id.coordinator_layout_bluetooth)
+    @BindView(R.id.coordinator_layout_bluetooth)
     CoordinatorLayout coordinatorLayout;
-    @Bind(R.id.button1)
-    FButton button1;
-    @Bind(R.id.button2)
-    FButton button2;
-    @Bind(R.id.button3)
-    FButton button3;
-    @Bind(R.id.button4)
-    FButton button4;
-    @Bind(R.id.button5)
-    FButton button5;
-    @Bind(R.id.button6)
-    FButton button6;
-    @Bind(R.id.button7)
-    FButton button7;
-    @Bind(R.id.button8)
-    FButton button8;
-    @Bind(R.id.button9)
-    FButton button9;
-    @Bind(R.id.button10)
-    FButton button10;
+    @BindView(R.id.button1)
+    Button button1;
+    @BindView(R.id.button2)
+    Button button2;
+    @BindView(R.id.button3)
+    Button button3;
+    @BindView(R.id.button4)
+    Button button4;
+    @BindView(R.id.button5)
+    Button button5;
+    @BindView(R.id.button6)
+    Button button6;
+    @BindView(R.id.button7)
+    Button button7;
+    @BindView(R.id.button8)
+    Button button8;
+    @BindView(R.id.button9)
+    Button button9;
+    @BindView(R.id.button10)
+    Button button10;
     MenuItem reconnectButton;
     Snackbar snackTurnOn;
     private boolean showMessagesIsChecked = true;
@@ -140,7 +141,7 @@ public class BluetoothActivity extends AppCompatActivity {
         setLongClickListener(button8, Constant.BUTTON_8);
 
         buttonOff(button1,Constant.BUTTON_1);
-        buttonOff(button2,Constant.BUTTON_2);
+        buttonUnlock(button2,Constant.BUTTON_2);
         buttonOff(button3,Constant.BUTTON_3);
         buttonOff(button4,Constant.BUTTON_4);
         buttonOff(button5,Constant.BUTTON_5);
@@ -168,12 +169,12 @@ public class BluetoothActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (button2.getText().toString().equalsIgnoreCase("OFF")) {
-                    buttonOn(button2, Constant.BUTTON_2);
+                if (button2.getText().toString().equalsIgnoreCase("Unlock")) {
+                    buttonLock(button2, Constant.BUTTON_2);
                     sendMessage("B");
 
                 } else {
-                    buttonOff(button2, Constant.BUTTON_2);
+                    buttonUnlock(button2, Constant.BUTTON_2);
                     sendMessage("b");
 
                 }
@@ -280,7 +281,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 buttonOn(button6, Constant.BUTTON_6);
                 buttonOn(button7, Constant.BUTTON_7);
                 buttonOn(button8, Constant.BUTTON_8);
-                sendMessage("ABCDEFGH");
+                sendMessage("C");
             }
         });
         button10.setOnClickListener(new View.OnClickListener() {
@@ -319,26 +320,39 @@ public class BluetoothActivity extends AppCompatActivity {
 
     }
 
-    public void buttonOn(FButton button, String buttonKey) {
+    public void buttonOn(Button button, String buttonKey) {
         String key=device.getName()+"_"+buttonKey;
         button.setText("ON");
         button.setCompoundDrawables(buttons_on.get(key), null, null, null);
-        button.setButtonColor(getResources().getColor(R.color.colorOn));
+//        button.setButtonColor(getResources().getColor(R.color.colorOn));
     }
 
-    public void buttonOff(FButton button, String buttonKey) {
+    public void buttonOff(Button button, String buttonKey) {
         String key=device.getName()+"_"+buttonKey;
         button.setText("OFF");
         button.setCompoundDrawables(buttons_off.get(key), null, null, null);
-        button.setButtonColor(getResources().getColor(R.color.colorItem));
+//        button.setButtonColor(getResources().getColor(R.color.colorItem));
+    }
+    public void buttonLock(Button button, String buttonKey) {
+        String key=device.getName()+"_"+buttonKey;
+        button.setText("Lock");
+        button.setCompoundDrawables(buttons_on.get(key), null, null, null);
+//        button.setButtonColor(getResources().getColor(R.color.colorOn));
     }
 
-    public void setLongClickListener(FButton button, final String key) {
+    public void buttonUnlock(Button button, String buttonKey) {
+        String key=device.getName()+"_"+buttonKey;
+        button.setText("Unlock");
+        button.setCompoundDrawables(buttons_off.get(key), null, null, null);
+//        button.setButtonColor(getResources().getColor(R.color.colorItem));
+    }
+
+    public void setLongClickListener(Button button, final String key) {
 
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                final FButton btn = (FButton) view;
+                final Button btn = (Button) view;
                 final AlertDialog.Builder builderSingle = new AlertDialog.Builder(BluetoothActivity.this);
                 builderSingle.setTitle("Select Tag");
 
@@ -462,8 +476,8 @@ public class BluetoothActivity extends AppCompatActivity {
 //                        }
 //                    }).show();
 
-//            byte[] send = message.getBytes();
-//            bluetoothService.write(send);
+            byte[] send = message.getBytes();
+            bluetoothService.write(send);
         }
     }
 
